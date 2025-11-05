@@ -1,0 +1,102 @@
+JFDML JFormDesigner: "7.0.2.6.321" Java: "11.0.8" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+			name: "this"
+			"title": "Nut Dynasty-Administrator"
+			"iconImage": new com.jformdesigner.model.SwingIcon( 1, "E:\\CodeFile\\DataBase-CustomerPurchaseManagementSystem\\Code\\src\\META-INF\\background.jpg" )
+			menuBar: new FormContainer( "javax.swing.JMenuBar", new FormLayoutManager( class javax.swing.JMenuBar ) ) {
+				name: "menuBar_1"
+				add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
+					name: "menu_CustomerManage"
+					"text": "客户管理"
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "menuItem_AddCustomer"
+						"text": "新增客户信息"
+						addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "menuItem_AddCustomer_MouseClicked", true ) )
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "menuItem_AddCustomer_ActionPerformed", true ) )
+					} )
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "menuItem_QueryCustomer"
+						"text": "查询客户信息"
+						addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "menuItem_QueryCustomer_MouseClicked", true ) )
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "menuItem_QueryCustomer_ActionPerformed", true ) )
+					} )
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "menuItem_DeleteCustomer"
+						"text": "删除客户信息"
+						addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "menuItem__DeleteCustomer_MouseClicked", true ) )
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "menuItem_DeleteCustomer_ActionPerformed", true ) )
+					} )
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "menuItem_UpdateCustomer"
+						"text": "修改客户信息"
+						addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "menuItem_UpdateCustomer_MouseClicked", true ) )
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "menuItem_UpdateCustomer_ActionPerformed", true ) )
+					} )
+				} )
+				add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
+					name: "menu_GoodsManage"
+					"text": "商品管理"
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "menuItem_SelectGoods"
+						"text": "选购商品"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "menuItem_SelectGoods_ActionPerformed", true ) )
+					} )
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "menuItem_AddGoods"
+						"text": "新增商品信息"
+					} )
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "menuItem_DeleteGoods"
+						"text": "删除商品信息"
+					} )
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "menuItem_QueryGoods"
+						"text": "查询商品信息"
+					} )
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "menuItem_UpdateGoods"
+						"text": "修改商品信息"
+					} )
+				} )
+				add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
+					name: "menu_OrderManage"
+					"text": "订单管理"
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "menuItem_QueryOrder"
+						"text": "查询订单信息"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "menuItem_QueryOrder_ActionPerformed", true ) )
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "menuItem_QueryOrder_ActionPerformed", true ) )
+					} )
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "menuItem_AddOrder"
+						"text": "新增订单信息"
+					} )
+				} )
+				add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
+					name: "menu_InvoiceManage"
+					"text": "发票管理"
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "menuItem_AddInvoice"
+						"text": "新增发票信息"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "menuItem_AddInvoice_ActionPerformed", true ) )
+					} )
+				} )
+				add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
+					name: "menu_Own"
+					"text": "个人中心"
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "menuItem_OwnInfo"
+						"text": "个人信息"
+					} )
+				} )
+			}
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 0, 0 )
+			"size": new java.awt.Dimension( 400, 300 )
+		} )
+	}
+}

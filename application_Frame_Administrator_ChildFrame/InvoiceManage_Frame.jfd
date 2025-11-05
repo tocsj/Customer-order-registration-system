@@ -1,0 +1,137 @@
+JFDML JFormDesigner: "7.0.2.6.321" Java: "11.0.8" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+			name: "this"
+			"title": "W-nut InvoiceManage"
+			"$sizePolicy": 1
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label_InvoiceName"
+				"text": "坚果公司发票处理中心"
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 120
+				"y": 15
+				"width": 140
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label_InvoiceNum"
+				"text": "发票号"
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 5
+				"y": 50
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "textField_InvoiceNum"
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 50
+				"y": 40
+				"width": 100
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label_CustomerNum"
+				"text": "客户号"
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 5
+				"y": 85
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "textField_CustomerNum"
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 50
+				"y": 80
+				"width": 100
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label_OrderNum"
+				"text": "订单号"
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 5
+				"y": 120
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "textField_OrderNum"
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 50
+				"y": 115
+				"width": 100
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label_Money"
+				"text": "应付金额"
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 5
+				"y": 165
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "textField_Money"
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 65
+				"y": 160
+				"width": 70
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "button_PayFor"
+				"text": "去支付"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "button_PayFor_ActionPerformed", true ) )
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 150
+				"y": 245
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label_PayWay"
+				"text": "支付方式"
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 145
+				"y": 165
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "button_PrintInvoice"
+				"text": "保存（打印）发票"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "button_PrintInvoice_ActionPerformed", true ) )
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 265
+				"y": 245
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label_CustomerName"
+				"text": "客户名"
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 160
+				"y": 85
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "textField_CustomerName"
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 205
+				"y": 80
+				"width": 120
+			} )
+			add( new FormComponent( "javax.swing.JComboBox" ) {
+				name: "comboBox_PayWay"
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 205
+				"y": 160
+				"width": 130
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label_Date"
+				"text": "日期"
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 5
+				"y": 210
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "textField_Date"
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 50
+				"y": 205
+				"width": 90
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 0, 0 )
+			"size": new java.awt.Dimension( 465, 395 )
+		} )
+	}
+}

@@ -1,0 +1,226 @@
+JFDML JFormDesigner: "7.0.2.6.321" Java: "11.0.8" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+			name: "this"
+			"title": "W-nut OrderManage"
+			add( new FormContainer( "javax.swing.JTabbedPane", new FormLayoutManager( class javax.swing.JTabbedPane ) ) {
+				name: "tabbedPane_OrderManage"
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+					name: "panel_QueryOrder"
+					add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+						name: "scrollPane1"
+						add( new FormComponent( "javax.swing.JTable" ) {
+							name: "table_OrderInfo"
+						} )
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+						"x": 10
+						"y": 25
+						"width": 305
+						"height": 200
+					} )
+					add( new FormComponent( "javax.swing.JButton" ) {
+						name: "button_QueryAll"
+						"text": "全部查询"
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+						"x": 320
+						"y": 20
+					} )
+					add( new FormComponent( "javax.swing.JButton" ) {
+						name: "button_QueryByOrderNum"
+						"text": "精准查询"
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+						"x": 135
+						"y": 265
+					} )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "label_TipOutput"
+						"text": "查询订单仅显示订单号、客户名、开订单日期"
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+						"x": 20
+						"y": 5
+						"width": 295
+					} )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "label_Order_num"
+						"text": "订单号"
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+						"x": 15
+						"y": 240
+					} )
+					add( new FormComponent( "javax.swing.JTextField" ) {
+						name: "textField_InputOrderNum"
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+						"x": 15
+						"y": 265
+						"width": 90
+					} )
+				}, new FormLayoutConstraints( null ) {
+					"title": "查询订单"
+				} )
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+					name: "panel_AddOrder"
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "label_OrderNum"
+						"text": "订单号"
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+						"x": 5
+						"y": 10
+					} )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "label_CustomerNum"
+						"text": "客户号"
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+						"x": 5
+						"y": 75
+					} )
+					add( new FormComponent( "javax.swing.JTextField" ) {
+						name: "textField_CustomerNum"
+						"editable": false
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+						"x": 55
+						"y": 70
+						"width": 85
+					} )
+					add( new FormComponent( "javax.swing.JTextField" ) {
+						name: "textField_OrderNum"
+						"editable": false
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+						"x": 55
+						"y": 5
+						"width": 90
+					} )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "label_OrderName"
+						"text": "坚果公司订货单"
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+						"x": 160
+						"y": 35
+						"width": 95
+						"height": 30
+					} )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "label_CustomerName"
+						"text": "客户名"
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+						"x": 165
+						"y": 75
+					} )
+					add( new FormComponent( "javax.swing.JTextField" ) {
+						name: "textField_CustomerName"
+						"editable": false
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+						"x": 220
+						"y": 70
+						"width": 130
+					} )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "label_OrderDate"
+						"text": "订货日期"
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+						"x": 5
+						"y": 125
+					} )
+					add( new FormComponent( "javax.swing.JTextField" ) {
+						name: "textField_OrderDate"
+						"editable": false
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+						"x": 60
+						"y": 120
+						"width": 85
+					} )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "label_GoodsInfo"
+						"text": "商品信息"
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+						"x": 5
+						"y": 170
+					} )
+					add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+						name: "scrollPane2"
+						add( new FormComponent( "javax.swing.JTable" ) {
+							name: "table_GoodsInfo"
+						} )
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+						"x": 15
+						"y": 195
+						"width": 380
+						"height": 100
+					} )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "label_OrderAddress"
+						"text": "送货地点"
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+						"x": 10
+						"y": 305
+					} )
+					add( new FormComponent( "javax.swing.JTextField" ) {
+						name: "textField_OrderAddress"
+						"editable": false
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+						"x": 10
+						"y": 325
+						"width": 100
+					} )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "label9"
+						"text": "总计（元）"
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+						"x": 410
+						"y": 245
+					} )
+					add( new FormComponent( "javax.swing.JTextField" ) {
+						name: "textField_TotalMoney"
+						"editable": false
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+						"x": 405
+						"y": 265
+						"width": 70
+					} )
+					add( new FormComponent( "javax.swing.JButton" ) {
+						name: "button_CheckInvoice"
+						"text": "开具发票"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "button_CheckInvoice_ActionPerformed", true ) )
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+						"x": 395
+						"y": 315
+					} )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "label_CustomerTel"
+						"text": "客户电话"
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+						"x": 150
+						"y": 305
+					} )
+					add( new FormComponent( "javax.swing.JTextField" ) {
+						name: "textField_CustomerTel"
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+						"x": 150
+						"y": 325
+						"width": 105
+					} )
+					add( new FormComponent( "javax.swing.JButton" ) {
+						name: "button_SaveOrder"
+						"text": "保存订单"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "button_SaveOrder_ActionPerformed", true ) )
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+						"x": 300
+						"y": 315
+					} )
+				}, new FormLayoutConstraints( null ) {
+					"title": "新增订单"
+				} )
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 0
+				"y": 0
+				"width": 485
+				"height": 390
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 5, 0 )
+			"size": new java.awt.Dimension( 490, 425 )
+		} )
+	}
+}
