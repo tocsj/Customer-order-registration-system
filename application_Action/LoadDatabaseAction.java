@@ -24,9 +24,13 @@ public class LoadDatabaseAction implements Constant
     {
         try
         {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            System.out.println("获取JDBC驱动成功！");
-            connection= DriverManager.getConnection(DATABASE_URL,USER_NAME,USER_PASSWORD);
+            Class.forName("com.mysql.cj.jdbc.Driver"); // 8.x 驱动
+            String url = "jdbc:mysql://localhost:3306/customer_purchase"
+                    + "?useUnicode=true&characterEncoding=utf8"
+                    + "&useSSL=false&serverTimezone=Asia/Shanghai";
+            String user = "root";
+            String pwd  = "1234";
+            connection = DriverManager.getConnection(url, user, pwd);
             System.out.println("连接数据库成功！");
             statement=connection.createStatement();
             System.out.println("获取SQL语句对象成功!");

@@ -18,6 +18,7 @@ public class AddController implements Constant
     private AddGoodsInfoInOrder addGoodsInfoInOrder;
     private AddInvoiceAction addInvoiceAction;
     private QueryCustomerAction queryCustomerAction;
+    private QueryGoodsAction queryGoodsAction;
     private QueryGoodsInfoInOrderAction queryGoodsInfoInOrderAction;
 
     public AddController()
@@ -37,6 +38,12 @@ public class AddController implements Constant
             state=addCustomerAction.addCustomer(new_cus_num,name,tel,address);
 
         return state;
+    }
+    public int addGoods()
+    {
+        queryGoodsAction=new QueryGoodsAction();
+
+        return 0;
     }
 
     //添加新订单记录

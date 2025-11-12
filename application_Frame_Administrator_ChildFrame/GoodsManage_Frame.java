@@ -198,7 +198,7 @@ public class GoodsManage_Frame extends JFrame implements Constant
     private void initComponents()
     {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-        // Generated using JFormDesigner Evaluation license - nut
+        // Generated using JFormDesigner Evaluation license - bob
         tabbedPane_GoodsManage = new JTabbedPane();
         panel_BuyGoods = new JPanel();
         scrollPane1 = new JScrollPane();
@@ -215,6 +215,14 @@ public class GoodsManage_Frame extends JFrame implements Constant
         scrollPane2 = new JScrollPane();
         table_SelectedGoods = new JTable();
         panel_AddGoods = new JPanel();
+        label1 = new JLabel();
+        label2 = new JLabel();
+        label3 = new JLabel();
+        textField1 = new JTextField();
+        textField2 = new JTextField();
+        textField3 = new JTextField();
+        button1 = new JButton();
+        button2 = new JButton();
 
         //======== this ========
         setTitle("W-nut GoodsManage");
@@ -226,13 +234,12 @@ public class GoodsManage_Frame extends JFrame implements Constant
 
             //======== panel_BuyGoods ========
             {
-                panel_BuyGoods.setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new javax.
-                swing. border. EmptyBorder( 0, 0, 0, 0) , "JF\u006frmDes\u0069gner \u0045valua\u0074ion", javax. swing. border
-                . TitledBorder. CENTER, javax. swing. border. TitledBorder. BOTTOM, new java .awt .Font ("D\u0069alog"
-                ,java .awt .Font .BOLD ,12 ), java. awt. Color. red) ,panel_BuyGoods. getBorder
-                ( )) ); panel_BuyGoods. addPropertyChangeListener (new java. beans. PropertyChangeListener( ){ @Override public void propertyChange (java
-                .beans .PropertyChangeEvent e) {if ("\u0062order" .equals (e .getPropertyName () )) throw new RuntimeException
-                ( ); }} );
+                panel_BuyGoods.setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new javax. swing.
+                border. EmptyBorder( 0, 0, 0, 0) , "JF\u006frmD\u0065sig\u006eer \u0045val\u0075ati\u006fn", javax. swing. border. TitledBorder. CENTER
+                , javax. swing. border. TitledBorder. BOTTOM, new java .awt .Font ("Dia\u006cog" ,java .awt .Font
+                .BOLD ,12 ), java. awt. Color. red) ,panel_BuyGoods. getBorder( )) ); panel_BuyGoods. addPropertyChangeListener (
+                new java. beans. PropertyChangeListener( ){ @Override public void propertyChange (java .beans .PropertyChangeEvent e) {if ("\u0062ord\u0065r"
+                .equals (e .getPropertyName () )) throw new RuntimeException( ); }} );
                 panel_BuyGoods.setLayout(null);
 
                 //======== scrollPane1 ========
@@ -252,7 +259,7 @@ public class GoodsManage_Frame extends JFrame implements Constant
 
                 //---- button_CheckOrder ----
                 button_CheckOrder.setText("\u53bb\u5f00\u8ba2\u5355");
-                button_CheckOrder.addActionListener(this::button_CheckOrder_ActionPerformed);
+                button_CheckOrder.addActionListener(e -> button_CheckOrder_ActionPerformed(e));
                 panel_BuyGoods.add(button_CheckOrder);
                 button_CheckOrder.setBounds(new Rectangle(new Point(415, 300), button_CheckOrder.getPreferredSize()));
 
@@ -272,7 +279,7 @@ public class GoodsManage_Frame extends JFrame implements Constant
 
                 //---- button_BuyIt ----
                 button_BuyIt.setText("\u786e\u5b9a");
-                button_BuyIt.addActionListener(this::button_BuyIt_ActionPerformed);
+                button_BuyIt.addActionListener(e -> button_BuyIt_ActionPerformed(e));
                 panel_BuyGoods.add(button_BuyIt);
                 button_BuyIt.setBounds(new Rectangle(new Point(235, 270), button_BuyIt.getPreferredSize()));
 
@@ -319,6 +326,37 @@ public class GoodsManage_Frame extends JFrame implements Constant
             {
                 panel_AddGoods.setLayout(null);
 
+                //---- label1 ----
+                label1.setText("\u5546\u54c1\u540d\u79f0");
+                panel_AddGoods.add(label1);
+                label1.setBounds(new Rectangle(new Point(20, 40), label1.getPreferredSize()));
+
+                //---- label2 ----
+                label2.setText("\u5546\u54c1\u4ef7\u683c");
+                panel_AddGoods.add(label2);
+                label2.setBounds(new Rectangle(new Point(20, 105), label2.getPreferredSize()));
+
+                //---- label3 ----
+                label3.setText("\u5546\u54c1\u5e93\u5b58");
+                panel_AddGoods.add(label3);
+                label3.setBounds(new Rectangle(new Point(20, 175), label3.getPreferredSize()));
+                panel_AddGoods.add(textField1);
+                textField1.setBounds(100, 40, 115, 40);
+                panel_AddGoods.add(textField2);
+                textField2.setBounds(100, 110, 115, 40);
+                panel_AddGoods.add(textField3);
+                textField3.setBounds(100, 175, 115, 40);
+
+                //---- button1 ----
+                button1.setText("ADD");
+                panel_AddGoods.add(button1);
+                button1.setBounds(new Rectangle(new Point(305, 60), button1.getPreferredSize()));
+
+                //---- button2 ----
+                button2.setText("ESC");
+                panel_AddGoods.add(button2);
+                button2.setBounds(new Rectangle(new Point(305, 165), button2.getPreferredSize()));
+
                 {
                     // compute preferred size
                     Dimension preferredSize = new Dimension();
@@ -337,7 +375,7 @@ public class GoodsManage_Frame extends JFrame implements Constant
             tabbedPane_GoodsManage.addTab("\u65b0\u589e\u5546\u54c1", panel_AddGoods);
         }
         contentPane.add(tabbedPane_GoodsManage);
-        tabbedPane_GoodsManage.setBounds(0, 0, 520, 380);
+        tabbedPane_GoodsManage.setBounds(-5, 5, 520, 380);
 
         {
             // compute preferred size
@@ -359,7 +397,7 @@ public class GoodsManage_Frame extends JFrame implements Constant
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - nut
+    // Generated using JFormDesigner Evaluation license - bob
     private JTabbedPane tabbedPane_GoodsManage;
     private JPanel panel_BuyGoods;
     private JScrollPane scrollPane1;
@@ -376,6 +414,14 @@ public class GoodsManage_Frame extends JFrame implements Constant
     private JScrollPane scrollPane2;
     private JTable table_SelectedGoods;
     private JPanel panel_AddGoods;
+    private JLabel label1;
+    private JLabel label2;
+    private JLabel label3;
+    private JTextField textField1;
+    private JTextField textField2;
+    private JTextField textField3;
+    private JButton button1;
+    private JButton button2;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
     private QueryController queryController;
     private String Current_CustomerName=null;

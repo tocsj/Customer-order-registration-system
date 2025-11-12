@@ -100,7 +100,7 @@ public class Administrator_Frame extends JFrame
     private void initComponents()
     {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-        // Generated using JFormDesigner Evaluation license - nut
+        // Generated using JFormDesigner Evaluation license - bob
         menuBar_1 = new JMenuBar();
         menu_CustomerManage = new JMenu();
         menuItem_AddCustomer = new JMenuItem();
@@ -269,7 +269,7 @@ public class Administrator_Frame extends JFrame
 
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - nut
+    // Generated using JFormDesigner Evaluation license - bob
     private JMenuBar menuBar_1;
     private JMenu menu_CustomerManage;
     private JMenuItem menuItem_AddCustomer;

@@ -10,9 +10,9 @@ import java.util.ArrayList;
 public interface Constant
 {
     //the link to database
-    String DATABASE_URL="jdbc:sqlserver://W-NUT:1433;DatabaseName=CustomerPurchase";
-    String USER_NAME="sa";
-    String USER_PASSWORD="123456";
+    String DATABASE_URL="jdbc:mysql://localhost:3306/customer_purchase?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai";
+    String USER_NAME="root";
+    String USER_PASSWORD="1234";
 
     //the name of actions
     String LOAD_DATABASE="application_Action.LoadDatabaseAction";
@@ -38,6 +38,10 @@ public interface Constant
     String ADD_ORDER="insert into CP_order(order_Num,order_CustomerNum,order_Date) values(?,?,?)";
     String ADD_GOODS_INFO_IN_ORDER="insert into CP_goodsInfoInOrder values(?,?,?,?,?)";
     String ADD_INVOICE="insert into CP_invoice values(?,?,?,?,?,?)";
+
+    String MODIFY_CUSTOMER="update CP_customer set cus_Name=?,cus_Tel=?,cus_Address=? where cus_Num=?";
+
+    String DELETE_CUSTOMER="delete from CP_customer where cus_Name=?";
 
     String UPDATE_GOODS_STORE_NUM="update CP_goods set goods_StoreNum=? where goods_Name=?";
 
@@ -79,6 +83,7 @@ public interface Constant
     int INPUT_NOT_INTEGER=9;                                            //输入的不是整数
     int ERROR=10;                                                       //操作成功
     int SUCCESS=11;                                                     //操作失败
+    int DELETE_SUCCESS=12;
 
     //the ways of paying
     String [] PAY_WAYS={"支付宝","微信","银行卡","现金"};                   //支付方式

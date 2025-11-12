@@ -17,7 +17,7 @@ public class AdministratorOwnManage_Frame extends JFrame
     private void initComponents()
     {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-        // Generated using JFormDesigner Evaluation license - nut
+        // Generated using JFormDesigner Evaluation license - bob
 
         //======== this ========
         var contentPane = getContentPane();
@@ -43,6 +43,6 @@ public class AdministratorOwnManage_Frame extends JFrame
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - nut
+    // Generated using JFormDesigner Evaluation license - bob
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 }
