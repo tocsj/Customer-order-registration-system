@@ -66,16 +66,35 @@ public class InvoiceManage_Frame extends JFrame implements Constant
         //更新商品库存(每一种选购的商品都要减少)
         updateController=new UpdateController();
 
-        if(GOODS_SELECTED_NAME.size()==0)
+        if(GOODS_SELECTED_NAME.size()==0) {
             JOptionPane.showMessageDialog(this,"订单中没有商品信息！","W-nut Errors",
                     JOptionPane.WARNING_MESSAGE);
-        else
-        {
-            for(int i=0;i<GOODS_SELECTED_NAME.size();++i)
-                updateController.UpdateGoodsStoreNum(GOODS_SELECTED_NAME.get(i),GOODS_SELECTED_CHOOSE_NUM.get(i));
-            JOptionPane.showMessageDialog(this,"支付成功");
+        } else {
+            // 添加一个标志来跟踪是否有任何商品库存更新失败
+            boolean allSuccess = true;
+            
+            for(int i=0; i<GOODS_SELECTED_NAME.size(); ++i) {
+                try {
+                    updateController.UpdateGoodsStoreNum(GOODS_SELECTED_NAME.get(i), GOODS_SELECTED_CHOOSE_NUM.get(i));
+                } catch (Exception ex) {
+                    allSuccess = false;
+                    ex.printStackTrace();
+                    JOptionPane.showMessageDialog(this, "商品[" + GOODS_SELECTED_NAME.get(i) + "]库存更新失败！", 
+                            "W-nut Errors", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+            
+            if (allSuccess) {
+                JOptionPane.showMessageDialog(this,"支付成功，库存已扣减！");
+            } else {
+                JOptionPane.showMessageDialog(this,"支付完成，但部分商品库存扣减失败！", 
+                        "W-nut Warning", JOptionPane.WARNING_MESSAGE);
+            }
+            
+            // 清空列表以防止重复扣减
+            GOODS_SELECTED_NAME.clear();
+            GOODS_SELECTED_CHOOSE_NUM.clear();
         }
-
     }
 
     private void printInvoice()

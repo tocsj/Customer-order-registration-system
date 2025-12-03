@@ -211,6 +211,71 @@ public class OrderManage_Frame extends JFrame implements Constant
         this.setVisible(false);
     }
     
+    // 去支付事件 - 选中订单后跳转到发票页面
+    private void button_GoToPay_ActionPerformed(ActionEvent e) {
+        // 检查是否选中了订单
+        int selectedRow = table_OrderInfo.getSelectedRow();
+        if (selectedRow < 0) {
+            JOptionPane.showMessageDialog(this, "请先选择一个订单！", "W-nut Tips", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        // 获取选中的订单号
+        String orderNum = (String) table_OrderInfo.getValueAt(selectedRow, 0);
+        
+        // 检查是否为"未找到订单"的提示信息
+        if ("未找到订单".equals(orderNum)) {
+            JOptionPane.showMessageDialog(this, "请选择有效的订单！", "W-nut Tips", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        // 查询该订单的客户名和总金额
+        String customerName = (String) table_OrderInfo.getValueAt(selectedRow, 1);
+        queryController = new QueryController();
+        float totalMoney = queryController.getOrderTotalMoney(orderNum);
+        
+        if (totalMoney >= 0) {
+            // 跳转到发票页面
+            InvoiceManage_Frame invoiceManage_frame = new InvoiceManage_Frame();
+            invoiceManage_frame.setOrderInfo(customerName, orderNum, totalMoney);
+            this.setVisible(false);
+        } else {
+            JOptionPane.showMessageDialog(this, "获取订单信息失败！", "W-nut Errors", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    // 双击订单表格事件处理 - 跳转到支付页面
+    private void table_OrderInfo_MouseClicked(MouseEvent e) {
+        // 检查是否双击且选中了有效行
+        if (e.getClickCount() == 2) {
+            int selectedRow = table_OrderInfo.getSelectedRow();
+            if (selectedRow >= 0) {
+                // 获取选中的订单号
+                String orderNum = (String) table_OrderInfo.getValueAt(selectedRow, 0);
+                
+                // 检查是否为"未找到订单"的提示信息
+                if ("未找到订单".equals(orderNum)) {
+                    JOptionPane.showMessageDialog(this, "请选择有效的订单！", "W-nut Tips", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+                
+                // 查询该订单的总金额和客户名
+                queryController = new QueryController();
+                float totalMoney = queryController.getOrderTotalMoney(orderNum);
+                String customerName = (String) table_OrderInfo.getValueAt(selectedRow, 1);
+                
+                if (totalMoney >= 0) {
+                    // 跳转到发票页面
+                    InvoiceManage_Frame invoiceManage_frame = new InvoiceManage_Frame();
+                    invoiceManage_frame.setOrderInfo(customerName, orderNum, totalMoney);
+                    this.setVisible(false);
+                } else {
+                    JOptionPane.showMessageDialog(this, "获取订单信息失败！", "W-nut Errors", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }
+    }
+    
     // 查询所有订单事件处理
     private void button_QueryAll_ActionPerformed(ActionEvent e) {
         // 清空表格内容
@@ -228,6 +293,14 @@ public class OrderManage_Frame extends JFrame implements Constant
         // 查询所有订单信息
         queryController = new QueryController();
         queryController.queryAllOrders(tableModel);
+        
+        // 添加双击事件监听器
+        table_OrderInfo.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                table_OrderInfo_MouseClicked(e);
+            }
+        });
     }
     
     // 精准查询订单事件处理
@@ -253,6 +326,14 @@ public class OrderManage_Frame extends JFrame implements Constant
         // 查询指定订单信息
         queryController = new QueryController();
         queryController.queryOrderByNum(orderNum, tableModel);
+        
+        // 添加双击事件监听器
+        table_OrderInfo.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                table_OrderInfo_MouseClicked(e);
+            }
+        });
     }
 
     //初始化框架
@@ -269,6 +350,7 @@ public class OrderManage_Frame extends JFrame implements Constant
         label_TipOutput = new JLabel();
         label_Order_num = new JLabel();
         textField_InputOrderNum = new JTextField();
+        button_GoToPay = new JButton(); // 添加去支付按钮
         panel_AddOrder = new JPanel();
         label_OrderNum = new JLabel();
         label_CustomerNum = new JLabel();
@@ -339,6 +421,12 @@ public class OrderManage_Frame extends JFrame implements Constant
                 label_Order_num.setBounds(new Rectangle(new Point(15, 240), label_Order_num.getPreferredSize()));
                 panel_QueryOrder.add(textField_InputOrderNum);
                 textField_InputOrderNum.setBounds(15, 265, 90, textField_InputOrderNum.getPreferredSize().height);
+
+                //---- button_GoToPay ----
+                button_GoToPay.setText("\u53bb\u652f\u4ed8");
+                button_GoToPay.addActionListener(e -> button_GoToPay_ActionPerformed(e));
+                panel_QueryOrder.add(button_GoToPay);
+                button_GoToPay.setBounds(new Rectangle(new Point(230, 265), button_GoToPay.getPreferredSize()));
 
                 {
                     // compute preferred size
@@ -507,6 +595,7 @@ public class OrderManage_Frame extends JFrame implements Constant
     private JLabel label_TipOutput;
     private JLabel label_Order_num;
     private JTextField textField_InputOrderNum;
+    private JButton button_GoToPay; // 添加去支付按钮
     private JPanel panel_AddOrder;
     private JLabel label_OrderNum;
     private JLabel label_CustomerNum;

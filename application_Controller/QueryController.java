@@ -116,4 +116,10 @@ public class QueryController implements Constant
         queryOrderAction = new QueryOrderAction();
         queryOrderAction.queryOrderByNum(orderNum, tableModel);
     }
+    
+    // 获取订单总金额
+    public float getOrderTotalMoney(String orderNum) {
+        queryOrderAction = new QueryOrderAction();
+        return queryOrderAction.getOrderTotalMoney(orderNum);
+    }
 }

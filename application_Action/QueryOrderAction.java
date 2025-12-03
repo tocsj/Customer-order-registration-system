@@ -117,4 +117,30 @@ public class QueryOrderAction extends LoadDatabaseAction implements Constant
             e.printStackTrace();
         }
     }
+    
+    // 获取订单总金额
+    public float getOrderTotalMoney(String orderNum) {
+        try {
+            super.loadDatabaseAction();
+            
+            // 查询订单中各商品的价格和数量，计算总金额
+            String query = "SELECT goods_Price, goods_ChooseNum FROM CP_goodsInfoInOrder WHERE order_Num = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, orderNum);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            
+            float totalMoney = 0.0f;
+            while (resultSet.next()) {
+                float price = resultSet.getFloat("goods_Price");
+                int quantity = resultSet.getInt("goods_ChooseNum");
+                totalMoney += price * quantity;
+            }
+            
+            super.disConnectDatabase();
+            return totalMoney;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return -1.0f; // 返回负数表示查询失败
+        }
+    }
 }

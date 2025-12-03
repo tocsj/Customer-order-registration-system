@@ -18,10 +18,19 @@ public class UpdateGoodsAction extends LoadDatabaseAction {
             preparedStatement.setInt(1, new_storeNum);
             preparedStatement.setString(2, goods_name);
 
-            preparedStatement.executeUpdate();
+            int result = preparedStatement.executeUpdate();
+            
+            // 添加更新结果检查
+            if (result > 0) {
+                System.out.println("商品[" + goods_name + "]库存更新成功: " + store_num + " -> " + new_storeNum);
+            } else {
+                System.out.println("商品[" + goods_name + "]库存更新失败，影响行数为0");
+            }
 
         } catch (SQLException e) {
+            System.err.println("商品[" + goods_name + "]库存更新异常: " + e.getMessage());
             e.printStackTrace();
+            throw new RuntimeException(e); // 将异常抛出以便上层捕获
         } finally {
             super.disConnectDatabase();
         }

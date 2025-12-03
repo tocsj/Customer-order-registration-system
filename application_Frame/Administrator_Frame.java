@@ -132,6 +132,12 @@ public class Administrator_Frame extends JFrame
         // TODO add your code here
     }
 
+    private void menuItem_OwnInfo_ActionPerformed(ActionEvent e) {
+        // 创建个人信息管理窗口
+        OwnInfo_Frame ownInfoFrame = new OwnInfo_Frame();
+        ownInfoFrame.setVisible(true);
+    }
+
     //方法功能：初始化框架
     private void initComponents()
     {
@@ -283,6 +289,7 @@ public class Administrator_Frame extends JFrame
 
                 //---- menuItem_OwnInfo ----
                 menuItem_OwnInfo.setText("\u4e2a\u4eba\u4fe1\u606f");
+                menuItem_OwnInfo.addActionListener(e -> menuItem_OwnInfo_ActionPerformed(e));
                 menu_Own.add(menuItem_OwnInfo);
             }
             menuBar_1.add(menu_Own);

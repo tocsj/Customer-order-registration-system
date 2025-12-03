@@ -17,6 +17,14 @@ public class UpdateController implements Constant {
         // 查询该商品的库存数量
         queryGoodsAction = new QueryGoodsAction();
         int storeNum = queryGoodsAction.queryGoodsStoreNumByName(goods_name);
+        
+        // 检查查询结果
+        if (storeNum < 0) {
+            System.err.println("查询商品[" + goods_name + "]库存失败，返回值: " + storeNum);
+            throw new RuntimeException("查询商品库存失败");
+        }
+
+        System.out.println("商品[" + goods_name + "]当前库存: " + storeNum + ", 购买数量: " + choose_num);
 
         // 更新库存数量
         updateGoodsAction = new UpdateGoodsAction();

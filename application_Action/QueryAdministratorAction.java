@@ -5,10 +5,10 @@
 
 package application_Action;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
 
 public class QueryAdministratorAction extends LoadDatabaseAction
 {
@@ -19,7 +19,24 @@ public class QueryAdministratorAction extends LoadDatabaseAction
     {
 
     }
-
+    
+    // 查询当前管理员名称
+    public String queryCurrentAdminName() {
+        try {
+            super.loadDatabaseAction();
+            
+            // 这里可以添加具体的查询逻辑，暂时返回默认管理员名
+            // 实际应用中可能需要根据登录状态或其他方式获取当前管理员信息
+            return "admin"; // 默认管理员名
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            super.disConnectDatabase();
+        }
+    }
+    
     public void checkAdministrator(String s_name,String s_password)
     {
         ArrayList<String> str_name = new ArrayList<>();

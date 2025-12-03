@@ -114,11 +114,14 @@ public class QueryGoodsAction extends LoadDatabaseAction
             ResultSet resultSet=preparedStatement.executeQuery();
             if(resultSet.next())
                 return resultSet.getInt("goods_StoreNum");
-            else
+            else {
+                System.err.println("未找到商品[" + goods_name + "]的库存信息");
                 return ERROR;
+            }
         }
         catch(SQLException e)
         {
+            System.err.println("查询商品[" + goods_name + "]库存异常: " + e.getMessage());
             e.printStackTrace();
             return DATABASE_ERROR;
         }
