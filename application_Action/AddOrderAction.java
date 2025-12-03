@@ -2,7 +2,9 @@ package application_Action;
 
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class AddOrderAction extends LoadDatabaseAction
 {
@@ -12,17 +14,23 @@ public class AddOrderAction extends LoadDatabaseAction
     }
 
     //添加订单记录
-    public int addOrder(String order_num, int cus_num, Date order_date )
+    public int addOrder(int cus_num, Date order_date, int[] generatedOrderId)
     {
         try
         {
             super.loadDatabaseAction();
-            PreparedStatement preparedStatement=connection.prepareStatement(ADD_ORDER);
+            PreparedStatement preparedStatement = connection.prepareStatement(ADD_ORDER, Statement.RETURN_GENERATED_KEYS);
 
-            preparedStatement.setString(1,order_num);
-            preparedStatement.setInt(2,cus_num);
-            preparedStatement.setDate(3,order_date);
+            preparedStatement.setInt(1, cus_num);
+            preparedStatement.setDate(2, order_date);
             preparedStatement.executeUpdate();
+            
+            // 获取生成的自增ID
+            ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
+            if (generatedKeys.next()) {
+                generatedOrderId[0] = generatedKeys.getInt(1);
+            }
+            generatedKeys.close();
 
             super.disConnectDatabase();
 

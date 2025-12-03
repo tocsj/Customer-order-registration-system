@@ -45,7 +45,7 @@ public class CustomerManage_Frame extends JFrame implements Constant
         this.setVisible(true);
     }
 
-    //点击查询所有客户信息按钮
+    //查询客户信息
     private void button_Query_ActionPerformed(ActionEvent e)
     {
         //向控制层发出请求
@@ -53,6 +53,7 @@ public class CustomerManage_Frame extends JFrame implements Constant
         queryController.InitCustomerHeader();
 
         DefaultTableModel tableModel=(DefaultTableModel)table_CustomerInfo.getModel();
+
         //清空原来内容
         tableModel.setRowCount(0);
         tableModel.setColumnCount(0);
@@ -72,15 +73,16 @@ public class CustomerManage_Frame extends JFrame implements Constant
             vec_customerInfo.add(CUSTOMER_INFO_NAME.get(i));
             vec_customerInfo.add(CUSTOMER_INFO_TEL.get(i));
             vec_customerInfo.add(CUSTOMER_INFO_ADDRESS.get(i));
+
             Object[]objects=vec_customerInfo.toArray();
             tableModel.addRow(objects);
             vec_customerInfo.clear();
         }
-        CUSTOMER_INFO_HEADER.clear();
         CUSTOMER_INFO_NUM.clear();
         CUSTOMER_INFO_NAME.clear();
         CUSTOMER_INFO_TEL.clear();
         CUSTOMER_INFO_ADDRESS.clear();
+        CUSTOMER_INFO_HEADER.clear();
     }
     //修改用户
     private void button_Modify_ActionPerformed(ActionEvent e){
@@ -253,20 +255,37 @@ public class CustomerManage_Frame extends JFrame implements Constant
         }
         else
         {
+            // 清空之前查询的结果
+            DefaultTableModel tableModel = (DefaultTableModel) table_CustomerInfo.getModel();
+            tableModel.setRowCount(0);
+            
             queryController=new QueryController();
-            int isExist=queryController.QueryCustomerByName(input_name);
-            switch (isExist)
-            {
-                case CUSTOMER_NAME_OVERLOAD -> {
-                    JOptionPane.showMessageDialog(this,
-                            "客户已存在！", "W-nut Tips", JOptionPane.PLAIN_MESSAGE);
-                    AddOrQuery_Success_CusName=input_name;
-                }
-                case CUSTOMER_NAME_NOT_OVERLOAD -> JOptionPane.showMessageDialog(this,
+            queryController.InitCustomerHeader();
+            
+            // 初始化表格头
+            tableModel.setColumnCount(0);
+            for(String str:CUSTOMER_INFO_HEADER)
+                tableModel.addColumn(str);
+            
+            // 查询客户信息
+            int isExist=queryController.QueryCustomerByName(input_name, false);
+            if(isExist == SUCCESS) {
+                // 展示客户信息
+                Vector<String> customerInfo = new Vector<>();
+                customerInfo.add(CUSTOMER_INFO_ALL.get(0)); // 客户号
+                customerInfo.add(CUSTOMER_INFO_ALL.get(1)); // 客户名
+                customerInfo.add(CUSTOMER_INFO_ALL.get(2)); // 客户电话
+                customerInfo.add(CUSTOMER_INFO_ALL.get(3)); // 客户地址
+                
+                tableModel.addRow(customerInfo);
+                AddOrQuery_Success_CusName=input_name;
+                CUSTOMER_INFO_ALL.clear();
+                CUSTOMER_INFO_HEADER.clear();
+            } else {
+                JOptionPane.showMessageDialog(this,
                         "没有该客户！", "W-nut Tips", JOptionPane.WARNING_MESSAGE);
             }
         }
-
     }
 
     //查询客户名成功后直接去购物
@@ -281,8 +300,24 @@ public class CustomerManage_Frame extends JFrame implements Constant
         }
         else
         {
-            JOptionPane.showMessageDialog(this, "没有查询到该客户！",
-                    "W-nut Tips", JOptionPane.WARNING_MESSAGE);
+            // 如果没有通过查询按钮获取客户名，尝试从输入框获取
+            String input_name=textField_InputCustomerName.getText();
+            if (!input_name.equals("")) {
+                // 验证客户是否存在
+                queryController = new QueryController();
+                int isExist = queryController.QueryCustomerByName(input_name);
+                if (isExist == CUSTOMER_NAME_OVERLOAD) {
+                    GoodsManage_Frame goodsManage_frame = new GoodsManage_Frame(0);
+                    goodsManage_frame.setShoppingCusName(input_name);
+                    this.setVisible(false);
+                } else {
+                    JOptionPane.showMessageDialog(this, "没有查询到该客户！",
+                            "W-nut Tips", JOptionPane.WARNING_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "没有查询到该客户！",
+                        "W-nut Tips", JOptionPane.WARNING_MESSAGE);
+            }
         }
     }
 

@@ -4,6 +4,7 @@
 
 package application_Frame_Administrator_ChildFrame;
 
+import application_Action.LoadDatabaseAction;
 import application_Constant.Constant;
 import application_Controller.AddController;
 import application_Controller.QueryController;
@@ -12,6 +13,8 @@ import application_Frame.Administrator_Frame;
 import java.awt.*;
 import java.awt.event.*;
 import java.sql.Date;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Vector;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -130,35 +133,68 @@ public class OrderManage_Frame extends JFrame implements Constant
         //写数据库中的Order表(订单号，客户号，日期)
         addController=new AddController();
         int cus_num=queryController.QueryCustomerNumByName(CurrentCustomer_Name);
-        int isAddOrder=addController.addOrder(order_num,cus_num,date);
+        if (cus_num == Constant.ERROR) {
+            JOptionPane.showMessageDialog(this, "客户信息查询失败，无法保存订单！",
+                    "W-nut Errors", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        // 用于获取生成的订单ID
+        int[] generatedOrderId = new int[1];
+        int isAddOrder=addController.addOrder(cus_num, date, generatedOrderId);
         switch (isAddOrder)
         {
-            case SUCCESS -> {
+            case Constant.SUCCESS -> {
                 JOptionPane.showMessageDialog(this, "保存订单成功！",
                         "W-nut Tips", JOptionPane.PLAIN_MESSAGE);
             }
-            case DATABASE_ERROR -> {
+            case Constant.DATABASE_ERROR -> {
                 JOptionPane.showMessageDialog(this, "保存订单失败！",
                         "W-nut Tips", JOptionPane.WARNING_MESSAGE);
+                return; // 如果订单保存失败，直接返回，不继续保存商品信息
             }
         }
 
         //写订单表中的商品信息(订单号，购买商品的商品号，购买商品的商品名，购买数量)
         int goods_RowNum=GOODS_SELECTED_NAME.size();
+        int successCount = 0; // 记录成功保存的商品信息数量
+        
+        // 使用生成的订单ID
+        int actual_order_num = generatedOrderId[0];
+        
         for(int i=0;i<goods_RowNum;++i)
         {
-            int isAddGoodsInfo = addController.addGoodsInfoInOrder(order_num, GOODS_INFO_NUM.get(i),
+            // 先查询商品信息，确保GOODS_INFO_PRICE等信息可用
+            queryController.QueryGoodsInfoByName(GOODS_SELECTED_NAME.get(i));
+
+            int isAddGoodsInfo = addController.addGoodsInfoInOrder(actual_order_num,
                     GOODS_SELECTED_NAME.get(i), GOODS_SELECTED_CHOOSE_NUM.get(i));
             switch (isAddGoodsInfo)
             {
-                case SUCCESS -> {
+                case Constant.SUCCESS -> {
                     System.out.println("商品信息保存成功！");
+                    successCount++;
                 }
-                case DATABASE_ERROR -> {
+                case Constant.DATABASE_ERROR -> {
                     System.out.println("商品信息保存失败!");
                 }
             }
+            // 清空商品信息列表，为下一个商品查询做准备
+            GOODS_INFO_NUM.clear();
+            GOODS_INFO_NAME.clear();
+            GOODS_INFO_PRICE.clear();
+            GOODS_INFO_STORE_NUM.clear();
         }
+        
+        // 检查是否所有商品信息都保存成功
+        if (successCount == goods_RowNum) {
+            JOptionPane.showMessageDialog(this, "订单及商品信息全部保存成功！",
+                    "W-nut Tips", JOptionPane.PLAIN_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "订单保存成功，但部分商品信息保存失败！",
+                    "W-nut Tips", JOptionPane.WARNING_MESSAGE);
+        }
+        
         GOODS_INFO_HEADER.clear();
         GOODS_INFO_SELECTED_HEADER.clear();
         GOODS_INFO_NUM.clear();

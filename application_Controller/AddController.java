@@ -55,19 +55,17 @@ public class AddController implements Constant
     }
 
     //添加新订单记录
-    public int addOrder(String order_num, int cus_num, Date order_date)
+    public int addOrder(int cus_num, Date order_date, int[] generatedOrderId)
     {
         addOrderAction=new AddOrderAction();
-        return addOrderAction.addOrder(order_num,cus_num,order_date);
+        return addOrderAction.addOrder(cus_num, order_date, generatedOrderId);
     }
 
     //添加记录：订单中的商品信息表(自动生成主码int信息编号)
-    public int addGoodsInfoInOrder(String order_num,String goods_num,String goods_name,String chooseNum)
+    public int addGoodsInfoInOrder(int order_num, String goods_name, String chooseNum)
     {
-        queryGoodsInfoInOrderAction=new QueryGoodsInfoInOrderAction();
-        int PK_info=queryGoodsInfoInOrderAction.queryLastNumPK();
         addGoodsInfoInOrder=new AddGoodsInfoInOrder();
-        return addGoodsInfoInOrder.addGoodsInfoInOrder(PK_info,order_num,goods_num,goods_name,chooseNum);
+        return addGoodsInfoInOrder.addGoodsInfoInOrder(order_num, goods_name, chooseNum);
     }
 
     //添加记录：发票表

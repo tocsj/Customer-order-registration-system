@@ -35,8 +35,8 @@ public interface Constant
     String QUERY_INVOICE_NUM="select inv_Num from CP_invoice";
 
     String ADD_CUSTOMER="insert into CP_customer values(?,?,?,?) ";
-    String ADD_ORDER="insert into CP_order(order_Num,order_CustomerNum,order_Date) values(?,?,?)";
-    String ADD_GOODS_INFO_IN_ORDER="insert into CP_goodsInfoInOrder values(?,?,?,?,?)";
+    String ADD_ORDER="insert into CP_order(order_CustomerNum,order_Date) values(?,?)";
+    String ADD_GOODS_INFO_IN_ORDER="insert into CP_goodsInfoInOrder(order_Num,goods_Name,goods_Price,goods_ChooseNum) values(?,?,?,?)";
     String ADD_INVOICE="insert into CP_invoice values(?,?,?,?,?,?)";
 
     String MODIFY_CUSTOMER="update CP_customer set cus_Name=?,cus_Tel=?,cus_Address=? where cus_Num=?";
