@@ -91,6 +91,8 @@ public interface Constant
     int GOODS_STORE_NUM_INVALID        =15;         //商品库存无效
     int GOODS_NAME_EXISTS              =16;         //商品名已存在
     int ADD_GOODS_ALLOWED              =17;         //允许添加商品
+    int GOODS_NAME_NOT_EXISTS          =18;         //商品名不存在
+    int UPDATE_SUCCESS                 =19;         //更新成功
 
     //the ways of paying
     String [] PAY_WAYS={"支付宝","微信","银行卡","现金"};                   //支付方式
@@ -99,4 +101,6 @@ public interface Constant
     String QUERY_GOODS_NUM = "select goods_Num from CP_goods";
     String QUERY_GOODS_NAME = "select goods_Name from CP_goods";
     String ADD_GOODS = "insert into CP_goods values(?,?,?,?)";
+    String DELETE_GOODS = "delete from CP_goods where goods_Name=?";
+    String UPDATE_GOODS = "update CP_goods set goods_Name=?, goods_Price=?, goods_StoreNum=? where goods_Name=?";
 }

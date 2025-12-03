@@ -7,7 +7,9 @@ package application_Frame_Administrator_ChildFrame;
 
 import application_Constant.Constant;
 import application_Controller.AddController;
+import application_Controller.DeleteController;
 import application_Controller.QueryController;
+import application_Controller.UpdateController;
 import application_Frame.Administrator_Frame;
 import java.awt.*;
 import java.awt.event.*;
@@ -118,6 +120,46 @@ public class GoodsManage_Frame extends JFrame implements Constant
         GOODS_INFO_STORE_NUM.clear();
         GOODS_INFO_HEADER.clear();
     }
+    
+    // 加载商品信息到查询表格
+    private void loadGoodsInfoToQueryTable()
+    {
+        //向控制层发出请求
+        queryController=new QueryController();
+        queryController.InitGoodsHeader();
+
+        DefaultTableModel tableModel=(DefaultTableModel)table_QueryGoods.getModel();
+
+        //清空原来内容
+        tableModel.setRowCount(0);
+        tableModel.setColumnCount(0);
+
+        //初始化表格头
+        for(String str:GOODS_INFO_HEADER)
+            tableModel.addColumn(str);
+
+        queryController.QueryGoodsInfo();
+
+        int goods_RowNum=GOODS_INFO_NUM.size();
+        Vector<String> vec_goodsInfo=new Vector<>();
+
+        for(int i=0;i<goods_RowNum;++i)
+        {
+            vec_goodsInfo.add(GOODS_INFO_NUM.get(i));
+            vec_goodsInfo.add(GOODS_INFO_NAME.get(i));
+            vec_goodsInfo.add(GOODS_INFO_PRICE.get(i).toString());
+            vec_goodsInfo.add(GOODS_INFO_STORE_NUM.get(i).toString());
+
+            Object[]objects=vec_goodsInfo.toArray();
+            tableModel.addRow(objects);
+            vec_goodsInfo.clear();
+        }
+        GOODS_INFO_NUM.clear();
+        GOODS_INFO_NAME.clear();
+        GOODS_INFO_PRICE.clear();
+        GOODS_INFO_STORE_NUM.clear();
+        GOODS_INFO_HEADER.clear();
+    }
 
     //开订单(需要传递客户名，选购的商品信息（商品名，选购数量）)
     private void button_CheckOrder_ActionPerformed(ActionEvent e)
@@ -134,6 +176,24 @@ public class GoodsManage_Frame extends JFrame implements Constant
                     "W-nut Errors", JOptionPane.ERROR_MESSAGE);
         }
 
+    }
+    
+    // 查询订单事件处理
+    private void button_QueryOrderActionPerformed(ActionEvent e) {
+        OrderManage_Frame orderManage_frame = new OrderManage_Frame(0);
+        this.setVisible(false);
+    }
+    
+    // 新增订单事件处理
+    private void button_AddOrderActionPerformed(ActionEvent e) {
+        if (Current_CustomerName == null) {
+            JOptionPane.showMessageDialog(this, "还没登记客户！", 
+                    "W-nut Tips", JOptionPane.PLAIN_MESSAGE);
+        } else {
+            OrderManage_Frame orderManage_frame = new OrderManage_Frame(1);
+            orderManage_frame.setCustomerName(Current_CustomerName);
+            this.setVisible(false);
+        }
     }
 
     //单击事件监听
@@ -246,6 +306,154 @@ public class GoodsManage_Frame extends JFrame implements Constant
         textField2.setText("");
         textField3.setText("");
     }
+    
+    // 删除商品事件处理
+    private void button_DeleteGoodsActionPerformed(ActionEvent e) {
+        String goodsName = textField_DeleteGoodsName.getText();
+        
+        if (goodsName.equals("")) {
+            JOptionPane.showMessageDialog(this, "商品名不能为空！",
+                    "W-nut Errors", JOptionPane.ERROR_MESSAGE);
+        } else {
+            deleteController = new DeleteController();
+            int isExists = deleteController.checkGoodsExists(goodsName);
+            
+            if (isExists == GOODS_NAME_NOT_EXISTS) {
+                JOptionPane.showMessageDialog(this, "该商品不存在！",
+                        "W-nut Errors", JOptionPane.ERROR_MESSAGE);
+            } else {
+                int isDeleted = deleteController.deleteGoods(goodsName);
+                
+                if (isDeleted == DELETE_SUCCESS) {
+                    JOptionPane.showMessageDialog(this, "删除成功！",
+                            "W-nut Tips", JOptionPane.PLAIN_MESSAGE);
+                    textField_DeleteGoodsName.setText("");
+                    // 刷新商品列表
+                    loadGoodsInfo();
+                } else {
+                    JOptionPane.showMessageDialog(this, "删除失败！",
+                            "W-nut Errors", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }
+    }
+    
+    // 取消删除商品事件处理
+    private void button_DeleteCancelActionPerformed(ActionEvent e) {
+        textField_DeleteGoodsName.setText("");
+    }
+    
+    // 查询所有商品事件处理
+    private void button_QueryAllGoodsActionPerformed(ActionEvent e) {
+        loadGoodsInfoToQueryTable();
+    }
+    
+    // 根据商品名查询商品事件处理
+    private void button_QueryGoodsByNameActionPerformed(ActionEvent e) {
+        String goodsName = textField_QueryGoodsName.getText();
+        
+        if (goodsName.equals("")) {
+            JOptionPane.showMessageDialog(this, "商品名不能为空！",
+                    "W-nut Errors", JOptionPane.ERROR_MESSAGE);
+        } else {
+            queryController = new QueryController();
+            queryController.InitGoodsHeader();
+            
+            DefaultTableModel tableModel = (DefaultTableModel) table_QueryGoods.getModel();
+            
+            // 清空原来内容
+            tableModel.setRowCount(0);
+            tableModel.setColumnCount(0);
+            
+            // 初始化表格头
+            for (String str : GOODS_INFO_HEADER)
+                tableModel.addColumn(str);
+            
+            queryController.QueryGoodsInfoByName(goodsName);
+            
+            if (GOODS_INFO_NUM.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "未找到该商品！",
+                        "W-nut Tips", JOptionPane.WARNING_MESSAGE);
+            } else {
+                Vector<String> vec_goodsInfo = new Vector<>();
+                
+                vec_goodsInfo.add(GOODS_INFO_NUM.get(0));
+                vec_goodsInfo.add(GOODS_INFO_NAME.get(0));
+                vec_goodsInfo.add(GOODS_INFO_PRICE.get(0).toString());
+                vec_goodsInfo.add(GOODS_INFO_STORE_NUM.get(0).toString());
+                
+                Object[] objects = vec_goodsInfo.toArray();
+                tableModel.addRow(objects);
+                vec_goodsInfo.clear();
+            }
+            
+            GOODS_INFO_NUM.clear();
+            GOODS_INFO_NAME.clear();
+            GOODS_INFO_PRICE.clear();
+            GOODS_INFO_STORE_NUM.clear();
+            GOODS_INFO_HEADER.clear();
+        }
+    }
+    
+    // 修改商品事件处理
+    private void button_UpdateGoodsActionPerformed(ActionEvent e) {
+        String currentGoodsName = textField_UpdateGoodsCurrentName.getText();
+        String newGoodsName = textField_UpdateGoodsNewName.getText();
+        String newGoodsPrice = textField_UpdateGoodsNewPrice.getText();
+        String newGoodsStoreNum = textField_UpdateGoodsNewStoreNum.getText();
+        
+        if (currentGoodsName.equals("")) {
+            JOptionPane.showMessageDialog(this, "当前商品名不能为空！",
+                    "W-nut Errors", JOptionPane.ERROR_MESSAGE);
+        } else if (newGoodsName.equals("")) {
+            JOptionPane.showMessageDialog(this, "新商品名不能为空！",
+                    "W-nut Errors", JOptionPane.ERROR_MESSAGE);
+        } else if (newGoodsPrice.equals("")) {
+            JOptionPane.showMessageDialog(this, "商品价格不能为空！",
+                    "W-nut Errors", JOptionPane.ERROR_MESSAGE);
+        } else if (newGoodsStoreNum.equals("")) {
+            JOptionPane.showMessageDialog(this, "商品库存不能为空！",
+                    "W-nut Errors", JOptionPane.ERROR_MESSAGE);
+        } else {
+            updateController = new UpdateController();
+            int isExists = updateController.checkGoodsExists(currentGoodsName);
+            
+            if (isExists == GOODS_NAME_NOT_EXISTS) {
+                JOptionPane.showMessageDialog(this, "该商品不存在！",
+                        "W-nut Errors", JOptionPane.ERROR_MESSAGE);
+            } else {
+                int isUpdated = updateController.updateGoodsInfo(currentGoodsName, newGoodsName, newGoodsPrice, newGoodsStoreNum);
+                
+                switch (isUpdated) {
+                    case GOODS_PRICE_INVALID -> JOptionPane.showMessageDialog(this, "商品价格必须是有效的数字！",
+                            "W-nut Errors", JOptionPane.ERROR_MESSAGE);
+                    case GOODS_STORE_NUM_INVALID -> JOptionPane.showMessageDialog(this, "商品库存必须是有效的整数！",
+                            "W-nut Errors", JOptionPane.ERROR_MESSAGE);
+                    case UPDATE_SUCCESS -> {
+                        JOptionPane.showMessageDialog(this, "修改商品成功！",
+                                "W-nut Tips", JOptionPane.PLAIN_MESSAGE);
+                        // 清空输入框
+                        textField_UpdateGoodsCurrentName.setText("");
+                        textField_UpdateGoodsNewName.setText("");
+                        textField_UpdateGoodsNewPrice.setText("");
+                        textField_UpdateGoodsNewStoreNum.setText("");
+                        // 刷新商品列表
+                        loadGoodsInfo();
+                    }
+                    default -> JOptionPane.showMessageDialog(this, "修改商品失败！",
+                            "W-nut Errors", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }
+    }
+    
+    // 取消修改商品事件处理
+    private void button_UpdateCancelActionPerformed(ActionEvent e) {
+        textField_UpdateGoodsCurrentName.setText("");
+        textField_UpdateGoodsNewName.setText("");
+        textField_UpdateGoodsNewPrice.setText("");
+        textField_UpdateGoodsNewStoreNum.setText("");
+    }
 
     //初始化框架
     private void initComponents()
@@ -276,6 +484,40 @@ public class GoodsManage_Frame extends JFrame implements Constant
         textField3 = new JTextField();
         good_add = new JButton();
         button2 = new JButton();
+        
+        // 新增订单管理面板
+        panel_OrderManage = new JPanel();
+        button_QueryOrder = new JButton();
+        button_AddOrder = new JButton();
+        
+        // 删除商品相关组件
+        panel_DeleteGoods = new JPanel();
+        label_DeleteGoodsName = new JLabel();
+        textField_DeleteGoodsName = new JTextField();
+        button_DeleteGoods = new JButton();
+        button_DeleteCancel = new JButton();
+        
+        // 查询商品相关组件
+        panel_QueryGoods = new JPanel();
+        scrollPane_QueryGoods = new JScrollPane();
+        table_QueryGoods = new JTable();
+        button_QueryAllGoods = new JButton();
+        label_QueryGoodsName = new JLabel();
+        textField_QueryGoodsName = new JTextField();
+        button_QueryGoodsByName = new JButton();
+        
+        // 修改商品相关组件
+        panel_UpdateGoods = new JPanel();
+        label_UpdateGoodsCurrentName = new JLabel();
+        textField_UpdateGoodsCurrentName = new JTextField();
+        label_UpdateGoodsNewName = new JLabel();
+        textField_UpdateGoodsNewName = new JTextField();
+        label_UpdateGoodsNewPrice = new JLabel();
+        textField_UpdateGoodsNewPrice = new JTextField();
+        label_UpdateGoodsNewStoreNum = new JLabel();
+        textField_UpdateGoodsNewStoreNum = new JTextField();
+        button_UpdateGoods = new JButton();
+        button_UpdateCancel = new JButton();
 
         //======== this ========
         setTitle("W-nut GoodsManage");
@@ -428,6 +670,199 @@ public class GoodsManage_Frame extends JFrame implements Constant
                 }
             }
             tabbedPane_GoodsManage.addTab("\u65b0\u589e\u5546\u54c1", panel_AddGoods);
+            
+            //======== panel_OrderManage ========
+            {
+                panel_OrderManage.setLayout(null);
+
+                //---- button_QueryOrder ----
+                button_QueryOrder.setText("\u67e5\u8be2\u8ba2\u5355");
+                button_QueryOrder.addActionListener(e -> button_QueryOrderActionPerformed(e));
+                panel_OrderManage.add(button_QueryOrder);
+                button_QueryOrder.setBounds(120, 85, 110, 35);
+
+                //---- button_AddOrder ----
+                button_AddOrder.setText("\u65b0\u589e\u8ba2\u5355");
+                button_AddOrder.addActionListener(e -> button_AddOrderActionPerformed(e));
+                panel_OrderManage.add(button_AddOrder);
+                button_AddOrder.setBounds(275, 85, 115, 35);
+
+                {
+                    // compute preferred size
+                    Dimension preferredSize = new Dimension();
+                    for(int i = 0; i < panel_OrderManage.getComponentCount(); i++) {
+                        Rectangle bounds = panel_OrderManage.getComponent(i).getBounds();
+                        preferredSize.width = Math.max(bounds.x + bounds.width, preferredSize.width);
+                        preferredSize.height = Math.max(bounds.y + bounds.height, preferredSize.height);
+                    }
+                    Insets insets = panel_OrderManage.getInsets();
+                    preferredSize.width += insets.right;
+                    preferredSize.height += insets.bottom;
+                    panel_OrderManage.setMinimumSize(preferredSize);
+                    panel_OrderManage.setPreferredSize(preferredSize);
+                }
+            }
+            tabbedPane_GoodsManage.addTab("\u8ba2\u5355\u7ba1\u7406", panel_OrderManage);
+            
+            //======== panel_DeleteGoods ========
+            {
+                panel_DeleteGoods.setLayout(null);
+
+                //---- label_DeleteGoodsName ----
+                label_DeleteGoodsName.setText("\u5546\u54c1\u540d\u79f0");
+                panel_DeleteGoods.add(label_DeleteGoodsName);
+                label_DeleteGoodsName.setBounds(new Rectangle(new Point(30, 65), label_DeleteGoodsName.getPreferredSize()));
+
+                //---- textField_DeleteGoodsName ----
+                panel_DeleteGoods.add(textField_DeleteGoodsName);
+                textField_DeleteGoodsName.setBounds(115, 60, 130, textField_DeleteGoodsName.getPreferredSize().height);
+
+                //---- button_DeleteGoods ----
+                button_DeleteGoods.setText("\u5220\u9664");
+                button_DeleteGoods.addActionListener(e -> button_DeleteGoodsActionPerformed(e));
+                panel_DeleteGoods.add(button_DeleteGoods);
+                button_DeleteGoods.setBounds(290, 55, 100, button_DeleteGoods.getPreferredSize().height);
+
+                //---- button_DeleteCancel ----
+                button_DeleteCancel.setText("\u53d6\u6d88");
+                button_DeleteCancel.addActionListener(e -> button_DeleteCancelActionPerformed(e));
+                panel_DeleteGoods.add(button_DeleteCancel);
+                button_DeleteCancel.setBounds(290, 125, 100, button_DeleteCancel.getPreferredSize().height);
+
+                {
+                    // compute preferred size
+                    Dimension preferredSize = new Dimension();
+                    for(int i = 0; i < panel_DeleteGoods.getComponentCount(); i++) {
+                        Rectangle bounds = panel_DeleteGoods.getComponent(i).getBounds();
+                        preferredSize.width = Math.max(bounds.x + bounds.width, preferredSize.width);
+                        preferredSize.height = Math.max(bounds.y + bounds.height, preferredSize.height);
+                    }
+                    Insets insets = panel_DeleteGoods.getInsets();
+                    preferredSize.width += insets.right;
+                    preferredSize.height += insets.bottom;
+                    panel_DeleteGoods.setMinimumSize(preferredSize);
+                    panel_DeleteGoods.setPreferredSize(preferredSize);
+                }
+            }
+            tabbedPane_GoodsManage.addTab("\u5220\u9664\u5546\u54c1", panel_DeleteGoods);
+
+            //======== panel_QueryGoods ========
+            {
+                panel_QueryGoods.setLayout(null);
+
+                //======== scrollPane_QueryGoods ========
+                {
+                    scrollPane_QueryGoods.setViewportView(table_QueryGoods);
+                }
+                panel_QueryGoods.add(scrollPane_QueryGoods);
+                scrollPane_QueryGoods.setBounds(10, 30, 485, 195);
+
+                //---- button_QueryAllGoods ----
+                button_QueryAllGoods.setText("\u5168\u90e8\u67e5\u8be2");
+                button_QueryAllGoods.addActionListener(e -> button_QueryAllGoodsActionPerformed(e));
+                panel_QueryGoods.add(button_QueryAllGoods);
+                button_QueryAllGoods.setBounds(new Rectangle(new Point(405, 240), button_QueryAllGoods.getPreferredSize()));
+
+                //---- label_QueryGoodsName ----
+                label_QueryGoodsName.setText("\u8f93\u5165\u5546\u54c1\u540d\u67e5\u8be2");
+                panel_QueryGoods.add(label_QueryGoodsName);
+                label_QueryGoodsName.setBounds(new Rectangle(new Point(20, 245), label_QueryGoodsName.getPreferredSize()));
+
+                //---- textField_QueryGoodsName ----
+                panel_QueryGoods.add(textField_QueryGoodsName);
+                textField_QueryGoodsName.setBounds(130, 240, 115, textField_QueryGoodsName.getPreferredSize().height);
+
+                //---- button_QueryGoodsByName ----
+                button_QueryGoodsByName.setText("\u7cbe\u51c6\u67e5\u8be2");
+                button_QueryGoodsByName.addActionListener(e -> button_QueryGoodsByNameActionPerformed(e));
+                panel_QueryGoods.add(button_QueryGoodsByName);
+                button_QueryGoodsByName.setBounds(new Rectangle(new Point(260, 240), button_QueryGoodsByName.getPreferredSize()));
+
+                {
+                    // compute preferred size
+                    Dimension preferredSize = new Dimension();
+                    for(int i = 0; i < panel_QueryGoods.getComponentCount(); i++) {
+                        Rectangle bounds = panel_QueryGoods.getComponent(i).getBounds();
+                        preferredSize.width = Math.max(bounds.x + bounds.width, preferredSize.width);
+                        preferredSize.height = Math.max(bounds.y + bounds.height, preferredSize.height);
+                    }
+                    Insets insets = panel_QueryGoods.getInsets();
+                    preferredSize.width += insets.right;
+                    preferredSize.height += insets.bottom;
+                    panel_QueryGoods.setMinimumSize(preferredSize);
+                    panel_QueryGoods.setPreferredSize(preferredSize);
+                }
+            }
+            tabbedPane_GoodsManage.addTab("\u67e5\u8be2\u5546\u54c1", panel_QueryGoods);
+
+            //======== panel_UpdateGoods ========
+            {
+                panel_UpdateGoods.setLayout(null);
+
+                //---- label_UpdateGoodsCurrentName ----
+                label_UpdateGoodsCurrentName.setText("\u5f53\u524d\u5546\u54c1\u540d\u79f0");
+                panel_UpdateGoods.add(label_UpdateGoodsCurrentName);
+                label_UpdateGoodsCurrentName.setBounds(new Rectangle(new Point(15, 35), label_UpdateGoodsCurrentName.getPreferredSize()));
+
+                //---- textField_UpdateGoodsCurrentName ----
+                panel_UpdateGoods.add(textField_UpdateGoodsCurrentName);
+                textField_UpdateGoodsCurrentName.setBounds(120, 30, 125, textField_UpdateGoodsCurrentName.getPreferredSize().height);
+
+                //---- label_UpdateGoodsNewName ----
+                label_UpdateGoodsNewName.setText("\u65b0\u5546\u54c1\u540d\u79f0");
+                panel_UpdateGoods.add(label_UpdateGoodsNewName);
+                label_UpdateGoodsNewName.setBounds(new Rectangle(new Point(15, 90), label_UpdateGoodsNewName.getPreferredSize()));
+
+                //---- textField_UpdateGoodsNewName ----
+                panel_UpdateGoods.add(textField_UpdateGoodsNewName);
+                textField_UpdateGoodsNewName.setBounds(120, 85, 125, textField_UpdateGoodsNewName.getPreferredSize().height);
+
+                //---- label_UpdateGoodsNewPrice ----
+                label_UpdateGoodsNewPrice.setText("\u65b0\u5546\u54c1\u4ef7\u683c");
+                panel_UpdateGoods.add(label_UpdateGoodsNewPrice);
+                label_UpdateGoodsNewPrice.setBounds(new Rectangle(new Point(15, 140), label_UpdateGoodsNewPrice.getPreferredSize()));
+
+                //---- textField_UpdateGoodsNewPrice ----
+                panel_UpdateGoods.add(textField_UpdateGoodsNewPrice);
+                textField_UpdateGoodsNewPrice.setBounds(120, 135, 125, textField_UpdateGoodsNewPrice.getPreferredSize().height);
+
+                //---- label_UpdateGoodsNewStoreNum ----
+                label_UpdateGoodsNewStoreNum.setText("\u65b0\u5546\u54c1\u5e93\u5b58");
+                panel_UpdateGoods.add(label_UpdateGoodsNewStoreNum);
+                label_UpdateGoodsNewStoreNum.setBounds(new Rectangle(new Point(15, 195), label_UpdateGoodsNewStoreNum.getPreferredSize()));
+
+                //---- textField_UpdateGoodsNewStoreNum ----
+                panel_UpdateGoods.add(textField_UpdateGoodsNewStoreNum);
+                textField_UpdateGoodsNewStoreNum.setBounds(120, 190, 125, textField_UpdateGoodsNewStoreNum.getPreferredSize().height);
+
+                //---- button_UpdateGoods ----
+                button_UpdateGoods.setText("\u4fee\u6539");
+                button_UpdateGoods.addActionListener(e -> button_UpdateGoodsActionPerformed(e));
+                panel_UpdateGoods.add(button_UpdateGoods);
+                button_UpdateGoods.setBounds(315, 70, 110, button_UpdateGoods.getPreferredSize().height);
+
+                //---- button_UpdateCancel ----
+                button_UpdateCancel.setText("\u53d6\u6d88");
+                button_UpdateCancel.addActionListener(e -> button_UpdateCancelActionPerformed(e));
+                panel_UpdateGoods.add(button_UpdateCancel);
+                button_UpdateCancel.setBounds(315, 145, 110, button_UpdateCancel.getPreferredSize().height);
+
+                {
+                    // compute preferred size
+                    Dimension preferredSize = new Dimension();
+                    for(int i = 0; i < panel_UpdateGoods.getComponentCount(); i++) {
+                        Rectangle bounds = panel_UpdateGoods.getComponent(i).getBounds();
+                        preferredSize.width = Math.max(bounds.x + bounds.width, preferredSize.width);
+                        preferredSize.height = Math.max(bounds.y + bounds.height, preferredSize.height);
+                    }
+                    Insets insets = panel_UpdateGoods.getInsets();
+                    preferredSize.width += insets.right;
+                    preferredSize.height += insets.bottom;
+                    panel_UpdateGoods.setMinimumSize(preferredSize);
+                    panel_UpdateGoods.setPreferredSize(preferredSize);
+                }
+            }
+            tabbedPane_GoodsManage.addTab("\u4fee\u6539\u5546\u54c1", panel_UpdateGoods);
         }
         contentPane.add(tabbedPane_GoodsManage);
         tabbedPane_GoodsManage.setBounds(-5, 5, 520, 380);
@@ -477,8 +912,44 @@ public class GoodsManage_Frame extends JFrame implements Constant
     private JTextField textField3;
     private JButton good_add;
     private JButton button2;
+    
+    // 订单管理相关组件
+    private JPanel panel_OrderManage;
+    private JButton button_QueryOrder;
+    private JButton button_AddOrder;
+    
+    // 删除商品相关组件
+    private JPanel panel_DeleteGoods;
+    private JLabel label_DeleteGoodsName;
+    private JTextField textField_DeleteGoodsName;
+    private JButton button_DeleteGoods;
+    private JButton button_DeleteCancel;
+    
+    // 查询商品相关组件
+    private JPanel panel_QueryGoods;
+    private JScrollPane scrollPane_QueryGoods;
+    private JTable table_QueryGoods;
+    private JButton button_QueryAllGoods;
+    private JLabel label_QueryGoodsName;
+    private JTextField textField_QueryGoodsName;
+    private JButton button_QueryGoodsByName;
+    
+    // 修改商品相关组件
+    private JPanel panel_UpdateGoods;
+    private JLabel label_UpdateGoodsCurrentName;
+    private JTextField textField_UpdateGoodsCurrentName;
+    private JLabel label_UpdateGoodsNewName;
+    private JTextField textField_UpdateGoodsNewName;
+    private JLabel label_UpdateGoodsNewPrice;
+    private JTextField textField_UpdateGoodsNewPrice;
+    private JLabel label_UpdateGoodsNewStoreNum;
+    private JTextField textField_UpdateGoodsNewStoreNum;
+    private JButton button_UpdateGoods;
+    private JButton button_UpdateCancel;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
     private QueryController queryController;
     private AddController addController;
+    private DeleteController deleteController;
+    private UpdateController updateController;
     private String Current_CustomerName=null;
 }

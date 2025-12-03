@@ -74,6 +74,12 @@ public class OrderManage_Frame extends JFrame implements Constant
         queryController.QueryCustomerInfo();
         int isAllowed=queryController.QueryCustomerByName(CurrentCustomer_Name, false);
 
+        if(CUSTOMER_INFO_ALL.size()==0)
+        {
+            JOptionPane.showMessageDialog(this,
+                    "客户信息获取失败！","W-nut Tips", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
         textField_CustomerNum.setText(CUSTOMER_INFO_ALL.get(0));
         textField_CustomerName.setText(CUSTOMER_INFO_ALL.get(1));
         textField_CustomerTel.setText(CUSTOMER_INFO_ALL.get(2));

@@ -169,6 +169,11 @@ new FormModel {
 				}, new FormLayoutConstraints( null ) {
 					"title": "新增商品"
 				} )
+				add( new FormContainer( "javax.swing.JTabbedPane", new FormLayoutManager( class javax.swing.JTabbedPane ) ) {
+					name: "tabbedPane1"
+				}, new FormLayoutConstraints( null ) {
+					"title": "text"
+				} )
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 				"x": -5
 				"y": 5

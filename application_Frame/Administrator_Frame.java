@@ -75,7 +75,43 @@ public class Administrator_Frame extends JFrame
        goodsManage_frame.checkCustomer();
        this.setVisible(false);
     }
-
+    
+    private void menuItem_AddGoods_ActionPerformed(ActionEvent e) 
+    {
+       GoodsManage_Frame goodsManage_frame=new GoodsManage_Frame(1);
+       this.setVisible(false);
+    }
+    
+    private void menuItem_DeleteGoods_ActionPerformed(ActionEvent e) 
+    {
+       GoodsManage_Frame goodsManage_frame=new GoodsManage_Frame(2);
+       this.setVisible(false);
+    }
+    
+    private void menuItem_QueryGoods_ActionPerformed(ActionEvent e) 
+    {
+       GoodsManage_Frame goodsManage_frame=new GoodsManage_Frame(3);
+       this.setVisible(false);
+    }
+    
+    private void menuItem_UpdateGoods_ActionPerformed(ActionEvent e) 
+    {
+       GoodsManage_Frame goodsManage_frame=new GoodsManage_Frame(4);
+       this.setVisible(false);
+    }
+    
+//    private void menuItem_QueryOrder_ActionPerformed(ActionEvent e)
+//    {
+//       GoodsManage_Frame goodsManage_frame=new GoodsManage_Frame(5);
+//       this.setVisible(false);
+//    }
+//
+//    private void menuItem_AddOrder_ActionPerformed(ActionEvent e)
+//    {
+//       GoodsManage_Frame goodsManage_frame=new GoodsManage_Frame(6);
+//       goodsManage_frame.checkCustomer();
+//       this.setVisible(false);
+//    }
     private void menuItem_AddCustomer_MouseClicked(MouseEvent e)
     {
         // TODO add your code here
@@ -191,18 +227,22 @@ public class Administrator_Frame extends JFrame
 
                 //---- menuItem_AddGoods ----
                 menuItem_AddGoods.setText("\u65b0\u589e\u5546\u54c1\u4fe1\u606f");
+                menuItem_AddGoods.addActionListener(e -> menuItem_AddGoods_ActionPerformed(e));
                 menu_GoodsManage.add(menuItem_AddGoods);
 
                 //---- menuItem_DeleteGoods ----
                 menuItem_DeleteGoods.setText("\u5220\u9664\u5546\u54c1\u4fe1\u606f");
+                menuItem_DeleteGoods.addActionListener(e -> menuItem_DeleteGoods_ActionPerformed(e));
                 menu_GoodsManage.add(menuItem_DeleteGoods);
 
                 //---- menuItem_QueryGoods ----
                 menuItem_QueryGoods.setText("\u67e5\u8be2\u5546\u54c1\u4fe1\u606f");
+                menuItem_QueryGoods.addActionListener(e -> menuItem_QueryGoods_ActionPerformed(e));
                 menu_GoodsManage.add(menuItem_QueryGoods);
 
                 //---- menuItem_UpdateGoods ----
                 menuItem_UpdateGoods.setText("\u4fee\u6539\u5546\u54c1\u4fe1\u606f");
+                menuItem_UpdateGoods.addActionListener(e -> menuItem_UpdateGoods_ActionPerformed(e));
                 menu_GoodsManage.add(menuItem_UpdateGoods);
             }
             menuBar_1.add(menu_GoodsManage);
@@ -221,6 +261,7 @@ public class Administrator_Frame extends JFrame
 
                 //---- menuItem_AddOrder ----
                 menuItem_AddOrder.setText("\u65b0\u589e\u8ba2\u5355\u4fe1\u606f");
+                menuItem_AddOrder.addActionListener(e -> menuItem_AddOrder_ActionPerformed(e));
                 menu_OrderManage.add(menuItem_AddOrder);
             }
             menuBar_1.add(menu_OrderManage);
