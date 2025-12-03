@@ -1,7 +1,3 @@
-/*
- * @author nut
- */
-
 package application_Frame_Administrator_ChildFrame;
 
 import application_Action.LoadDatabaseAction;
@@ -214,6 +210,50 @@ public class OrderManage_Frame extends JFrame implements Constant
         invoiceManage_frame.setOrderInfo(CurrentCustomer_Name,order_num,total_Price);
         this.setVisible(false);
     }
+    
+    // 查询所有订单事件处理
+    private void button_QueryAll_ActionPerformed(ActionEvent e) {
+        // 清空表格内容
+        DefaultTableModel tableModel = (DefaultTableModel) table_OrderInfo.getModel();
+        tableModel.setRowCount(0);
+        tableModel.setColumnCount(0);
+        
+        // 设置表头
+        Vector<String> columnNames = new Vector<>();
+        columnNames.add("订单号");
+        columnNames.add("客户名");
+        columnNames.add("开单日期");
+        tableModel.setColumnIdentifiers(columnNames);
+        
+        // 查询所有订单信息
+        queryController = new QueryController();
+        queryController.queryAllOrders(tableModel);
+    }
+    
+    // 精准查询订单事件处理
+    private void button_QueryByOrderNum_ActionPerformed(ActionEvent e) {
+        String orderNum = textField_InputOrderNum.getText().trim();
+        if (orderNum.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "请输入订单号！", "W-nut Tips", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        // 清空表格内容
+        DefaultTableModel tableModel = (DefaultTableModel) table_OrderInfo.getModel();
+        tableModel.setRowCount(0);
+        tableModel.setColumnCount(0);
+        
+        // 设置表头
+        Vector<String> columnNames = new Vector<>();
+        columnNames.add("订单号");
+        columnNames.add("客户名");
+        columnNames.add("开单日期");
+        tableModel.setColumnIdentifiers(columnNames);
+        
+        // 查询指定订单信息
+        queryController = new QueryController();
+        queryController.queryOrderByNum(orderNum, tableModel);
+    }
 
     //初始化框架
     private void initComponents()
@@ -278,11 +318,13 @@ public class OrderManage_Frame extends JFrame implements Constant
 
                 //---- button_QueryAll ----
                 button_QueryAll.setText("\u5168\u90e8\u67e5\u8be2");
+                button_QueryAll.addActionListener(e -> button_QueryAll_ActionPerformed(e));
                 panel_QueryOrder.add(button_QueryAll);
                 button_QueryAll.setBounds(new Rectangle(new Point(320, 20), button_QueryAll.getPreferredSize()));
 
                 //---- button_QueryByOrderNum ----
                 button_QueryByOrderNum.setText("\u7cbe\u51c6\u67e5\u8be2");
+                button_QueryByOrderNum.addActionListener(e -> button_QueryByOrderNum_ActionPerformed(e));
                 panel_QueryOrder.add(button_QueryByOrderNum);
                 button_QueryByOrderNum.setBounds(new Rectangle(new Point(135, 265), button_QueryByOrderNum.getPreferredSize()));
 

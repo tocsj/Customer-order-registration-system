@@ -1,9 +1,14 @@
 package application_Action;
 
+import application_Constant.Constant;
+
+import javax.swing.table.DefaultTableModel;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Vector;
 
-public class QueryOrderAction extends LoadDatabaseAction
+public class QueryOrderAction extends LoadDatabaseAction implements Constant
 {
     public QueryOrderAction()
     {
@@ -57,6 +62,59 @@ public class QueryOrderAction extends LoadDatabaseAction
         finally
         {
             ORDER_INFO_NUM.clear();
+        }
+    }
+    
+    // 查询所有订单
+    public void queryAllOrders(DefaultTableModel tableModel) {
+        try {
+            super.loadDatabaseAction();
+            
+            String query = "SELECT o.order_Num, c.cus_Name, o.order_Date FROM CP_order o JOIN CP_customer c ON o.order_CustomerNum = c.cus_Num ORDER BY o.order_Date DESC";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            
+            while (resultSet.next()) {
+                Vector<String> row = new Vector<>();
+                row.add(resultSet.getString("order_Num"));
+                row.add(resultSet.getString("cus_Name"));
+                row.add(resultSet.getString("order_Date"));
+                tableModel.addRow(row);
+            }
+            
+            super.disConnectDatabase();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    // 根据订单号查询订单
+    public void queryOrderByNum(String orderNum, DefaultTableModel tableModel) {
+        try {
+            super.loadDatabaseAction();
+            
+            String query = "SELECT o.order_Num, c.cus_Name, o.order_Date FROM CP_order o JOIN CP_customer c ON o.order_CustomerNum = c.cus_Num WHERE o.order_Num = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, orderNum);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            
+            if (resultSet.next()) {
+                Vector<String> row = new Vector<>();
+                row.add(resultSet.getString("order_Num"));
+                row.add(resultSet.getString("cus_Name"));
+                row.add(resultSet.getString("order_Date"));
+                tableModel.addRow(row);
+            } else {
+                // 没有找到对应的订单
+                Vector<String> row = new Vector<>();
+                row.add("未找到订单");
+
+                tableModel.addRow(row);
+            }
+            
+            super.disConnectDatabase();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 }

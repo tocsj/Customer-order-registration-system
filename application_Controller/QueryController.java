@@ -8,6 +8,9 @@ package application_Controller;
 import application_Action.*;
 import application_Constant.Constant;
 
+import javax.swing.table.DefaultTableModel;
+import java.util.Vector;
+
 public class QueryController implements Constant
 {
     private QueryCustomerAction queryCustomerAction;
@@ -100,5 +103,17 @@ public class QueryController implements Constant
     {
         queryGoodsInfoInOrderAction=new QueryGoodsInfoInOrderAction();
         queryGoodsInfoInOrderAction.queryGoodsNameByOrderNum(order_num);
+    }
+    
+    // 查询所有订单
+    public void queryAllOrders(DefaultTableModel tableModel) {
+        queryOrderAction = new QueryOrderAction();
+        queryOrderAction.queryAllOrders(tableModel);
+    }
+    
+    // 根据订单号查询订单
+    public void queryOrderByNum(String orderNum, DefaultTableModel tableModel) {
+        queryOrderAction = new QueryOrderAction();
+        queryOrderAction.queryOrderByNum(orderNum, tableModel);
     }
 }
