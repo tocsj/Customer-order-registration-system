@@ -90,7 +90,7 @@ public class CustomerManage_Frame extends JFrame implements Constant
         String tel = CUSTOMER_INFO_TEL.get(table_CustomerInfo.getSelectedRow());
         String address = CUSTOMER_INFO_ADDRESS.get(table_CustomerInfo.getSelectedRow());
 
-        this.tabbedPane_CustomerManage.setSelectedIndex(3);
+        this.tabbedPane_CustomerManage.setSelectedIndex(2);
         this.textField_CustomerTel2.setText(tel);
         this.textField_CustomerName2.setText(name);
         this.textArea_CustomerAddress2.setText(address);
@@ -335,13 +335,13 @@ public class CustomerManage_Frame extends JFrame implements Constant
 
             //======== panel_AddCustomer ========
             {
-                panel_AddCustomer.setBorder ( new javax . swing. border .CompoundBorder ( new javax . swing. border .TitledBorder ( new javax
-                . swing. border .EmptyBorder ( 0, 0 ,0 , 0) ,  "JF\u006frmD\u0065sig\u006eer \u0045val\u0075ati\u006fn" , javax. swing
-                .border . TitledBorder. CENTER ,javax . swing. border .TitledBorder . BOTTOM, new java. awt .
-                Font ( "Dia\u006cog", java .awt . Font. BOLD ,12 ) ,java . awt. Color .red
-                ) ,panel_AddCustomer. getBorder () ) ); panel_AddCustomer. addPropertyChangeListener( new java. beans .PropertyChangeListener ( ){ @Override
-                public void propertyChange (java . beans. PropertyChangeEvent e) { if( "\u0062ord\u0065r" .equals ( e. getPropertyName (
-                ) ) )throw new RuntimeException( ) ;} } );
+                panel_AddCustomer.setBorder ( new javax . swing. border .CompoundBorder ( new javax . swing. border .TitledBorder ( new
+                javax . swing. border .EmptyBorder ( 0, 0 ,0 , 0) ,  "JF\u006frmDesi\u0067ner Ev\u0061luatio\u006e" , javax
+                . swing .border . TitledBorder. CENTER ,javax . swing. border .TitledBorder . BOTTOM, new java
+                . awt .Font ( "Dialo\u0067", java .awt . Font. BOLD ,12 ) ,java . awt
+                . Color .red ) ,panel_AddCustomer. getBorder () ) ); panel_AddCustomer. addPropertyChangeListener( new java. beans .
+                PropertyChangeListener ( ){ @Override public void propertyChange (java . beans. PropertyChangeEvent e) { if( "borde\u0072" .
+                equals ( e. getPropertyName () ) )throw new RuntimeException( ) ;} } );
                 panel_AddCustomer.setLayout(null);
 
                 //---- label_CustomerName ----
@@ -443,7 +443,7 @@ public class CustomerManage_Frame extends JFrame implements Constant
 
                 //---- button_Modify ----
                 button_Modify.setText("\u4fee\u6539");
-                button_Modify.addActionListener(e -> button_Query_ActionPerformed(e));
+                button_Modify.addActionListener(e -> button_Modify_ActionPerformed(e));
                 panel_QueryCustomer.add(button_Modify);
                 button_Modify.setBounds(325, 85, 78, 30);
 
@@ -491,7 +491,7 @@ public class CustomerManage_Frame extends JFrame implements Constant
 
                 //---- button_Modify2 ----
                 button_Modify2.setText("Modify");
-                button_Modify2.addActionListener(e -> button_Add_ActionPerformed(e));
+                button_Modify2.addActionListener(e -> button_Modify2_ActionPerformed(e));
                 panel_UpdateCustomer.add(button_Modify2);
                 button_Modify2.setBounds(260, 50, 85, 35);
 
@@ -531,7 +531,7 @@ public class CustomerManage_Frame extends JFrame implements Constant
 
                 //---- button_DeleteByName ----
                 button_DeleteByName.setText("\u641c\u7d22\u5e76\u5220\u9664");
-                button_DeleteByName.addActionListener(e -> button_QueryByName_ActionPerformed(e));
+                button_DeleteByName.addActionListener(e -> button_DeleteByName_ActionPerformed(e));
                 panel_DeleteCustomer.add(button_DeleteByName);
                 button_DeleteByName.setBounds(175, 45, 105, 40);
 
