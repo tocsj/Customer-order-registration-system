@@ -6,6 +6,7 @@
 package application_Frame_Administrator_ChildFrame;
 
 import application_Constant.Constant;
+import application_Controller.AddController;
 import application_Controller.QueryController;
 import application_Frame.Administrator_Frame;
 import java.awt.*;
@@ -195,10 +196,62 @@ public class GoodsManage_Frame extends JFrame implements Constant
         //将购买信息保存起来
     }
 
+    //添加商品事件处理
+    private void good_addActionPerformed(ActionEvent e) {
+        String goodsName = textField1.getText();
+        String goodsPrice = textField2.getText();
+        String goodsStoreNum = textField3.getText();
+
+        if (goodsName.equals("")) {
+            JOptionPane.showMessageDialog(this, "商品名不能为空哦！",
+                    "W-nut Errors", JOptionPane.ERROR_MESSAGE);
+        } else if (goodsPrice.equals("")) {
+            JOptionPane.showMessageDialog(this, "商品价格不能为空哦！",
+                    "W-nut Errors", JOptionPane.ERROR_MESSAGE);
+        } else if (goodsStoreNum.equals("")) {
+            JOptionPane.showMessageDialog(this, "商品库存不能为空哦！",
+                    "W-nut Errors", JOptionPane.ERROR_MESSAGE);
+        } else {
+            addController = new AddController();
+            int isAllowed = addController.addGoods(goodsName, goodsPrice, goodsStoreNum);
+            
+            switch (isAllowed) {
+                case GOODS_NAME_INVALID -> JOptionPane.showMessageDialog(this, "商品名长度不能超过20个字符！",
+                        "W-nut Errors", JOptionPane.ERROR_MESSAGE);
+                case GOODS_PRICE_INVALID -> JOptionPane.showMessageDialog(this, "商品价格必须是有效的数字！",
+                        "W-nut Errors", JOptionPane.ERROR_MESSAGE);
+                case GOODS_STORE_NUM_INVALID -> JOptionPane.showMessageDialog(this, "商品库存必须是有效的整数！",
+                        "W-nut Errors", JOptionPane.ERROR_MESSAGE);
+                case GOODS_NAME_EXISTS -> JOptionPane.showMessageDialog(this, "该商品名已存在，请更换商品名！",
+                        "W-nut Errors", JOptionPane.ERROR_MESSAGE);
+                case SUCCESS -> {
+                    JOptionPane.showMessageDialog(this, "添加商品成功！",
+                            "W-nut Tips", JOptionPane.PLAIN_MESSAGE);
+                    // 清空输入框
+                    textField1.setText("");
+                    textField2.setText("");
+                    textField3.setText("");
+                    // 刷新商品列表
+                    loadGoodsInfo();
+                }
+                default -> JOptionPane.showMessageDialog(this, "添加商品失败！",
+                        "W-nut Errors", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
+    //取消添加商品事件处理
+    private void button2ActionPerformed(ActionEvent e) {
+        textField1.setText("");
+        textField2.setText("");
+        textField3.setText("");
+    }
+
+    //初始化框架
     private void initComponents()
     {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-        // Generated using JFormDesigner Evaluation license - bob
+        // Generated using JFormDesigner Evaluation license - Ethan Hunt
         tabbedPane_GoodsManage = new JTabbedPane();
         panel_BuyGoods = new JPanel();
         scrollPane1 = new JScrollPane();
@@ -221,7 +274,7 @@ public class GoodsManage_Frame extends JFrame implements Constant
         textField1 = new JTextField();
         textField2 = new JTextField();
         textField3 = new JTextField();
-        button1 = new JButton();
+        good_add = new JButton();
         button2 = new JButton();
 
         //======== this ========
@@ -234,13 +287,12 @@ public class GoodsManage_Frame extends JFrame implements Constant
 
             //======== panel_BuyGoods ========
             {
-                panel_BuyGoods.setBorder(new javax.swing.border.CompoundBorder(new javax.swing.border.TitledBorder(new javax
-                .swing.border.EmptyBorder(0,0,0,0), "JF\u006frmDes\u0069gner \u0045valua\u0074ion",javax.swing
-                .border.TitledBorder.CENTER,javax.swing.border.TitledBorder.BOTTOM,new java.awt.
-                Font("D\u0069alog",java.awt.Font.BOLD,12),java.awt.Color.red
-                ),panel_BuyGoods. getBorder()));panel_BuyGoods. addPropertyChangeListener(new java.beans.PropertyChangeListener(){@Override
-                public void propertyChange(java.beans.PropertyChangeEvent e){if("\u0062order".equals(e.getPropertyName(
-                )))throw new RuntimeException();}});
+                panel_BuyGoods.setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new javax. swing. border
+                . EmptyBorder( 0, 0, 0, 0) , "JFor\u006dDesi\u0067ner \u0045valu\u0061tion", javax. swing. border. TitledBorder. CENTER, javax
+                . swing. border. TitledBorder. BOTTOM, new java .awt .Font ("Dia\u006cog" ,java .awt .Font .BOLD ,
+                12 ), java. awt. Color. red) ,panel_BuyGoods. getBorder( )) ); panel_BuyGoods. addPropertyChangeListener (new java. beans
+                . PropertyChangeListener( ){ @Override public void propertyChange (java .beans .PropertyChangeEvent e) {if ("bord\u0065r" .equals (e .
+                getPropertyName () )) throw new RuntimeException( ); }} );
                 panel_BuyGoods.setLayout(null);
 
                 //======== scrollPane1 ========
@@ -348,15 +400,17 @@ public class GoodsManage_Frame extends JFrame implements Constant
                 panel_AddGoods.add(textField3);
                 textField3.setBounds(100, 175, 115, 40);
 
-                //---- button1 ----
-                button1.setText("ADD");
-                panel_AddGoods.add(button1);
-                button1.setBounds(new Rectangle(new Point(305, 60), button1.getPreferredSize()));
+                //---- good_add ----
+                good_add.setText("ADD");
+                good_add.addActionListener(e -> good_addActionPerformed(e));
+                panel_AddGoods.add(good_add);
+                good_add.setBounds(305, 60, 105, good_add.getPreferredSize().height);
 
                 //---- button2 ----
                 button2.setText("ESC");
+                button2.addActionListener(e -> button2ActionPerformed(e));
                 panel_AddGoods.add(button2);
-                button2.setBounds(new Rectangle(new Point(305, 165), button2.getPreferredSize()));
+                button2.setBounds(305, 165, 105, button2.getPreferredSize().height);
 
                 {
                     // compute preferred size
@@ -398,7 +452,7 @@ public class GoodsManage_Frame extends JFrame implements Constant
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - bob
+    // Generated using JFormDesigner Evaluation license - Ethan Hunt
     private JTabbedPane tabbedPane_GoodsManage;
     private JPanel panel_BuyGoods;
     private JScrollPane scrollPane1;
@@ -421,9 +475,10 @@ public class GoodsManage_Frame extends JFrame implements Constant
     private JTextField textField1;
     private JTextField textField2;
     private JTextField textField3;
-    private JButton button1;
+    private JButton good_add;
     private JButton button2;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
     private QueryController queryController;
+    private AddController addController;
     private String Current_CustomerName=null;
 }

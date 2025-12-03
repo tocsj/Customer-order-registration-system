@@ -56,6 +56,7 @@ public class CustomerManage_Frame extends JFrame implements Constant
         //清空原来内容
         tableModel.setRowCount(0);
         tableModel.setColumnCount(0);
+
         //初始化表格头
         for(String str:CUSTOMER_INFO_HEADER)
             tableModel.addColumn(str);

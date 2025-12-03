@@ -20,6 +20,7 @@ public class AddController implements Constant
     private QueryCustomerAction queryCustomerAction;
     private QueryGoodsAction queryGoodsAction;
     private QueryGoodsInfoInOrderAction queryGoodsInfoInOrderAction;
+    private AddGoodsAction addGoodsAction;
 
     public AddController()
     {
@@ -39,11 +40,18 @@ public class AddController implements Constant
 
         return state;
     }
-    public int addGoods()
-    {
-        queryGoodsAction=new QueryGoodsAction();
 
-        return 0;
+    public int addGoods(String name, String price, String storeNum)
+    {
+        addGoodsAction = new AddGoodsAction();
+        int state = addGoodsAction.checkInfo(name, price, storeNum);
+        if (state == ADD_GOODS_ALLOWED) {
+            int goodsNum = addGoodsAction.queryGoodsNum();
+            float goodsPrice = Float.parseFloat(price);
+            int goodsStoreNum = Integer.parseInt(storeNum);
+            state = addGoodsAction.addGoods(goodsNum, name, goodsPrice, goodsStoreNum);
+        }
+        return state;
     }
 
     //添加新订单记录

@@ -10,9 +10,9 @@ public class ModifyController {
 
     public int modifyCustomer(String id, String name, String tel, String address) {
         modifyCustomerAction=new ModifyCustomerAction();
-        int state=modifyCustomerAction.checkInfo(name,tel,address);
-        if(state==ModifyCustomerAction.ADD_CUSTOMER_ALLOWED)
-            state=modifyCustomerAction.modifyCustomer(id,name,tel,address);
+        //int state=modifyCustomerAction.checkInfo(name,tel,address);
+        //if(state==ModifyCustomerAction.ADD_CUSTOMER_ALLOWED)
+           int state=modifyCustomerAction.modifyCustomer(id,name,tel,address);
         return state;
     }
 }

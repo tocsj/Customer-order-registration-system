@@ -84,7 +84,19 @@ public interface Constant
     int ERROR=10;                                                       //操作成功
     int SUCCESS=11;                                                     //操作失败
     int DELETE_SUCCESS=12;
+    
+    //goods info state(商品信息状态）
+    int GOODS_NAME_INVALID             =13;         //商品名无效
+    int GOODS_PRICE_INVALID            =14;         //商品价格无效
+    int GOODS_STORE_NUM_INVALID        =15;         //商品库存无效
+    int GOODS_NAME_EXISTS              =16;         //商品名已存在
+    int ADD_GOODS_ALLOWED              =17;         //允许添加商品
 
     //the ways of paying
     String [] PAY_WAYS={"支付宝","微信","银行卡","现金"};                   //支付方式
+    
+    //Additional SQL queries for goods management
+    String QUERY_GOODS_NUM = "select goods_Num from CP_goods";
+    String QUERY_GOODS_NAME = "select goods_Name from CP_goods";
+    String ADD_GOODS = "insert into CP_goods values(?,?,?,?)";
 }
