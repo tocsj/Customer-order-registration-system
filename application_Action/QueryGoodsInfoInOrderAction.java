@@ -60,7 +60,20 @@ public class QueryGoodsInfoInOrderAction extends LoadDatabaseAction
             super.loadDatabaseAction();
 
             PreparedStatement preparedStatement=connection.prepareStatement(QUERY_GOODS_INFO_IN_ORDER_BY_ORDER_NUM);
-            preparedStatement.setString(1,order_num);
+            // 尝试将order_num解析为整数，如果是格式化字符串则提取其中的数字部分
+            try {
+                int orderId = Integer.parseInt(order_num);
+                preparedStatement.setInt(1, orderId);
+            } catch (NumberFormatException e) {
+                // 如果不是纯数字，则尝试提取格式化字符串中的数字部分（如"O000000001" -> 1）
+                if (order_num != null && order_num.startsWith("O") && order_num.length() > 1) {
+                    int orderId = Integer.parseInt(order_num.substring(1));
+                    preparedStatement.setInt(1, orderId);
+                } else {
+                    // 如果都不是，直接使用原字符串
+                    preparedStatement.setString(1, order_num);
+                }
+            }
             ResultSet resultSet=preparedStatement.executeQuery();
 
             while(resultSet.next())

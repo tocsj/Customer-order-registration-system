@@ -1,6 +1,5 @@
 package application_Action;
 
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,7 +13,7 @@ public class AddOrderAction extends LoadDatabaseAction
     }
 
     //添加订单记录
-    public int addOrder(int cus_num, Date order_date, int[] generatedOrderId)
+    public int addOrder(int cus_num, java.sql.Timestamp order_date, int[] generatedOrderId)
     {
         try
         {
@@ -22,7 +21,7 @@ public class AddOrderAction extends LoadDatabaseAction
             PreparedStatement preparedStatement = connection.prepareStatement(ADD_ORDER, Statement.RETURN_GENERATED_KEYS);
 
             preparedStatement.setInt(1, cus_num);
-            preparedStatement.setDate(2, order_date);
+            preparedStatement.setTimestamp(2, order_date);
             preparedStatement.executeUpdate();
             
             // 获取生成的自增ID

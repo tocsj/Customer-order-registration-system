@@ -66,7 +66,7 @@ public class OrderManage_Frame extends JFrame implements Constant
         textField_OrderNum.setText(order_num);
 
         //获取开单时间
-        date = new Date(System.currentTimeMillis());
+        date = new java.sql.Timestamp(System.currentTimeMillis());
         textField_OrderDate.setText(date.toString());
 
         //填充客户信息
@@ -137,7 +137,7 @@ public class OrderManage_Frame extends JFrame implements Constant
         
         // 用于获取生成的订单ID
         int[] generatedOrderId = new int[1];
-        int isAddOrder=addController.addOrder(cus_num, date, generatedOrderId);
+        int isAddOrder=addController.addOrder(cus_num, new java.sql.Timestamp(date.getTime()), generatedOrderId);
         switch (isAddOrder)
         {
             case Constant.SUCCESS -> {
@@ -207,7 +207,7 @@ public class OrderManage_Frame extends JFrame implements Constant
     private void button_CheckInvoice_ActionPerformed(ActionEvent e)
     {
         InvoiceManage_Frame invoiceManage_frame=new InvoiceManage_Frame();
-        invoiceManage_frame.setOrderInfo(CurrentCustomer_Name,order_num,total_Price);
+        invoiceManage_frame.setOrderInfo(CurrentCustomer_Name, order_num, total_Price);
         this.setVisible(false);
     }
     
@@ -237,8 +237,13 @@ public class OrderManage_Frame extends JFrame implements Constant
         if (totalMoney >= 0) {
             // 跳转到发票页面
             InvoiceManage_Frame invoiceManage_frame = new InvoiceManage_Frame();
-            invoiceManage_frame.setOrderInfo(customerName, orderNum, totalMoney);
-            this.setVisible(false);
+            // 在这里传递订单号之前确保它是有效的
+            if (orderNum != null && !orderNum.isEmpty()) {
+                invoiceManage_frame.setOrderInfo(customerName, orderNum, totalMoney);
+                this.setVisible(false);
+            } else {
+                JOptionPane.showMessageDialog(this, "订单号无效！", "W-nut Errors", JOptionPane.ERROR_MESSAGE);
+            }
         } else {
             JOptionPane.showMessageDialog(this, "获取订单信息失败！", "W-nut Errors", JOptionPane.ERROR_MESSAGE);
         }
@@ -267,8 +272,13 @@ public class OrderManage_Frame extends JFrame implements Constant
                 if (totalMoney >= 0) {
                     // 跳转到发票页面
                     InvoiceManage_Frame invoiceManage_frame = new InvoiceManage_Frame();
-                    invoiceManage_frame.setOrderInfo(customerName, orderNum, totalMoney);
-                    this.setVisible(false);
+                    // 在这里传递订单号之前确保它是有效的
+                    if (orderNum != null && !orderNum.isEmpty()) {
+                        invoiceManage_frame.setOrderInfo(customerName, orderNum, totalMoney);
+                        this.setVisible(false);
+                    } else {
+                        JOptionPane.showMessageDialog(this, "订单号无效！", "W-nut Errors", JOptionPane.ERROR_MESSAGE);
+                    }
                 } else {
                     JOptionPane.showMessageDialog(this, "获取订单信息失败！", "W-nut Errors", JOptionPane.ERROR_MESSAGE);
                 }
@@ -383,7 +393,8 @@ public class OrderManage_Frame extends JFrame implements Constant
 
             //======== panel_QueryOrder ========
             {
-                panel_QueryOrder.setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new javax. swing.
+                panel_QueryOrder.setBorder (new javax. swing. border. CompoundBorder( new javax .swing .
+                border. TitledBorder (new javax. swing.
                 border. EmptyBorder( 0, 0, 0, 0) , "JF\u006frmD\u0065sig\u006eer \u0045val\u0075ati\u006fn", javax. swing. border. TitledBorder. CENTER
                 , javax. swing. border. TitledBorder. BOTTOM, new java .awt .Font ("Dia\u006cog" ,java .awt .Font
                 .BOLD ,12 ), java. awt. Color. red) ,panel_QueryOrder. getBorder( )) ); panel_QueryOrder. addPropertyChangeListener (
@@ -621,7 +632,7 @@ public class OrderManage_Frame extends JFrame implements Constant
     private String CurrentCustomer_Name=null;
     private String order_num=null;
     private float total_Price=0;
-    private Date date;
+    private java.sql.Timestamp date;
     private QueryController queryController;
     private AddController addController;
 }

@@ -42,7 +42,7 @@ public class InvoiceManage_Frame extends JFrame implements Constant
     }
 
     //接收订单上的客户名，订单号，总金额
-    public void setOrderInfo(String customer_name,String order_num,float total_money)
+    public void setOrderInfo(String customer_name, String order_num, float total_money)
     {
         Customer_Name=customer_name;
         Order_Num=order_num;
@@ -61,6 +61,7 @@ public class InvoiceManage_Frame extends JFrame implements Constant
 
         //按订单号查询订单中的已选商品信息（商品名，商品选购数量）
         queryController=new QueryController();
+        // 使用实际的订单ID而不是格式化的订单号
         queryController.QueryGoodsInfoInOrder(Order_Num);//结果保存到GOODS_SELECTED_NAME，GOODS_SELECTED_CHOOSE_NUM动态数组中
 
         //更新商品库存(每一种选购的商品都要减少)
@@ -102,7 +103,12 @@ public class InvoiceManage_Frame extends JFrame implements Constant
         //生成发票号
         queryController=new QueryController();
         Invoice_Num=queryController.QueryInvoiceNum();
-        textField_InvoiceNum.setText(Invoice_Num);
+        if (Invoice_Num != null && !Invoice_Num.isEmpty()) {
+            textField_InvoiceNum.setText(Invoice_Num);
+        } else {
+            // 如果发票号为空，给出默认值或错误提示
+            textField_InvoiceNum.setText("I000000001");
+        }
 
         //获取开发票时间
         date = new Date(System.currentTimeMillis());
@@ -124,7 +130,23 @@ public class InvoiceManage_Frame extends JFrame implements Constant
         int cus_num=queryController.QueryCustomerNumByName(Customer_Name);
         //向数据库写数据Invoice表
         addController=new AddController();
-        int isInvoice=addController.addInvoice(Invoice_Num,Order_Num,cus_num,Total_Money,pay_way,date);
+        
+        // 将订单号字符串转换为整数ID
+        int order_id = -1;
+        try {
+            // 从格式化订单号"O000000001"中提取数字部分并转换为整数
+            if (Order_Num != null && Order_Num.startsWith("O") && Order_Num.length() > 1) {
+                order_id = Integer.parseInt(Order_Num.substring(1));
+            } else {
+                order_id = Integer.parseInt(Order_Num);
+            }
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "订单号格式错误！", "W-nut Errors", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        // 传入整数类型的订单ID而不是字符串
+        int isInvoice=addController.addInvoice(order_id, cus_num, Total_Money, pay_way, date);
         switch (isInvoice)
         {
             case SUCCESS -> {

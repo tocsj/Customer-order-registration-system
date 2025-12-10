@@ -1,0 +1,48 @@
+JFDML JFormDesigner: "8.2.4.0.393" Java: "21.0.5" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+			name: "this"
+			"title": "\u4e2a\u4eba\u4fe1\u606f"
+			"minimumSize": new java.awt.Dimension( 300, 150 )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.BorderLayout ) ) {
+				name: "dialogPane"
+				"border": new com.jformdesigner.model.SwingBorder( 1, "javax.swing.border.EmptyBorder", [12, 12, 12, 12] )
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+					name: "contentPanel"
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "label1"
+						"text": "\u7ba1\u7406\u5458\u540d\uff1a"
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+						"x": 30
+						"y": 35
+					} )
+					add( new FormComponent( "javax.swing.JTextField" ) {
+						name: "textField_AdminName"
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+						"x": 105
+						"y": 30
+						"width": 130
+					} )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.BorderConstraints ) {
+					"region": "Center"
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "button_Close_"
+					"text": "\u5173\u95ed"
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "button_Close_ActionPerformed", true ) )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.BorderConstraints ) {
+					"region": "South"
+				} )
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 0
+				"y": 0
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 0, 0 )
+			"size": new java.awt.Dimension( 280, 165 )
+		} )
+	}
+}

@@ -1,9 +1,3 @@
-/*
- *@author W-nut
- *
- */
-
-
 package application_Controller;
 
 import application_Action.*;
@@ -14,64 +8,122 @@ import java.sql.Date;
 public class AddController implements Constant
 {
     private AddCustomerAction addCustomerAction;
+    private AddGoodsAction addGoodsAction;
     private AddOrderAction addOrderAction;
     private AddGoodsInfoInOrder addGoodsInfoInOrder;
     private AddInvoiceAction addInvoiceAction;
-    private QueryCustomerAction queryCustomerAction;
-    private QueryGoodsAction queryGoodsAction;
-    private QueryGoodsInfoInOrderAction queryGoodsInfoInOrderAction;
-    private AddGoodsAction addGoodsAction;
+    private QueryCustomerAction queryCustomerAction; // 添加QueryCustomerAction引用
 
     public AddController()
     {
 
     }
 
-    //添加新客户
+    //添加客户
     public int addCustomer(String name,String tel,String address)
     {
-        queryCustomerAction=new QueryCustomerAction();
-        int new_cus_num=queryCustomerAction.queryCustomerNum();
+        try
+        {
+            //检查输入合法性
+            int name_length=name.length();
+            if(name_length>20)
+                return CUSTOMER_NAME_OVER_LENGTH;//名字超长
 
-        addCustomerAction=new AddCustomerAction();
-        int state=addCustomerAction.checkInfo(name,tel,address);
-        if(state==ADD_CUSTOMER_ALLOWED)
-            state=addCustomerAction.addCustomer(new_cus_num,name,tel,address);
+            float tel_length=tel.length();
+            if(tel_length!=0&&tel_length!=11)
+                return CUSTOMER_TEL_OVER_LENGTH;//电话号码长度不对
 
-        return state;
-    }
+            int address_length=address.length();
+            if(address_length>50)
+                return CUSTOMER_ADDRESS_OVER_LENGTH;//地址超长
 
-    public int addGoods(String name, String price, String storeNum)
-    {
-        addGoodsAction = new AddGoodsAction();
-        int state = addGoodsAction.checkInfo(name, price, storeNum);
-        if (state == ADD_GOODS_ALLOWED) {
-            int goodsNum = addGoodsAction.queryGoodsNum();
-            float goodsPrice = Float.parseFloat(price);
-            int goodsStoreNum = Integer.parseInt(storeNum);
-            state = addGoodsAction.addGoods(goodsNum, name, goodsPrice, goodsStoreNum);
+            addCustomerAction=new AddCustomerAction();
+            queryCustomerAction=new QueryCustomerAction(); // 初始化QueryCustomerAction
+            
+            // 先检查客户信息的合法性
+            int isAllowed = addCustomerAction.checkInfo(name, tel, address);
+            if (isAllowed == ADD_CUSTOMER_ALLOWED) {
+                // 获取新的客户号
+                int customerNum = queryCustomerAction.queryCustomerNum(); // 使用QueryCustomerAction的方法
+                if (customerNum == DATABASE_ERROR)
+                    return DATABASE_ERROR;
+                
+                // 添加客户到数据库
+                int result = addCustomerAction.addCustomer(customerNum, name, tel, address);
+                return result;
+            } else {
+                return isAllowed; // 返回检查失败的原因
+            }
         }
-        return state;
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            return DATABASE_ERROR;
+        }
     }
 
-    //添加新订单记录
-    public int addOrder(int cus_num, Date order_date, int[] generatedOrderId)
+    //添加商品
+    public int addGoods(String name,String price,String storeNum)
+    {
+        try
+        {
+            //检查输入合法性
+            int name_length=name.length();
+            if(name_length>20)
+                return GOODS_NAME_INVALID;//商品名超长
+
+            addGoodsAction=new AddGoodsAction();
+            // 使用正确的方法名checkInfo替代checkInputLegality
+            int isAllowed=addGoodsAction.checkInfo(name,price,storeNum);
+            switch (isAllowed)
+            {
+                case GOODS_PRICE_INVALID -> {return GOODS_PRICE_INVALID;}//价格无效
+                case GOODS_STORE_NUM_INVALID -> {return GOODS_STORE_NUM_INVALID;}//库存无效
+                case GOODS_NAME_EXISTS -> {return GOODS_NAME_EXISTS;}//商品名已存在
+                case ADD_GOODS_ALLOWED -> {
+                    //添加商品到数据库
+                    int goods_num=addGoodsAction.queryGoodsNum();
+                    if(goods_num==DATABASE_ERROR)
+                        return DATABASE_ERROR;
+
+                    float goods_price=Float.parseFloat(price);
+                    int goods_storeNum=Integer.parseInt(storeNum);
+                    int isAdd=addGoodsAction.addGoods(goods_num,name,goods_price,goods_storeNum);
+                    if(isAdd==SUCCESS)
+                        return SUCCESS;
+                    else
+                        return DATABASE_ERROR;
+                }
+                default -> {return DATABASE_ERROR;}
+            }
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            return DATABASE_ERROR;
+        }
+    }
+
+    //添加订单记录
+    public int addOrder(int cus_num, java.sql.Timestamp order_date, int[] generatedOrderId)
     {
         addOrderAction=new AddOrderAction();
         return addOrderAction.addOrder(cus_num, order_date, generatedOrderId);
     }
 
-    //添加记录：订单中的商品信息表(自动生成主码int信息编号)
-    public int addGoodsInfoInOrder(int order_num, String goods_name, String chooseNum)
+    //添加订单中的商品信息
+    public int addGoodsInfoInOrder(int order_num,String goods_name,String choose_num)
     {
         addGoodsInfoInOrder=new AddGoodsInfoInOrder();
-        return addGoodsInfoInOrder.addGoodsInfoInOrder(order_num, goods_name, chooseNum);
+        return addGoodsInfoInOrder.addGoodsInfoInOrder(order_num,goods_name,choose_num);
     }
 
-    //添加记录：发票表
-    public int addInvoice(String invoice_num,String order_num,int cus_num,float total_price,String pay_way,Date date )
+    // 添加发票记录
+    // 修改方法签名，第一个参数改为int类型的订单ID
+    public int addInvoice(int order_id, int cus_num, float total_price, String pay_way, Date date )
     {
-        addInvoiceAction=new AddInvoiceAction();
-        return addInvoiceAction.addInvoice(invoice_num,order_num,cus_num,total_price,pay_way,date);
+        addInvoiceAction = new AddInvoiceAction();
+        // 调用修改后的addInvoice方法，传入整数类型的订单ID
+        return addInvoiceAction.addInvoice(order_id, cus_num, total_price, pay_way, date);
     }
 }
