@@ -70,7 +70,7 @@ public class QueryOrderAction extends LoadDatabaseAction implements Constant
         try {
             super.loadDatabaseAction();
             
-            String query = "SELECT o.order_Num, c.cus_Name, o.order_Date FROM CP_order o JOIN CP_customer c ON o.order_CustomerNum = c.cus_Num ORDER BY o.order_Date DESC";
+            String query = "SELECT o.order_Num, c.cus_Name, o.order_Date, o.status FROM CP_order o JOIN CP_customer c ON o.order_CustomerNum = c.cus_Num ORDER BY o.order_Date DESC";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             ResultSet resultSet = preparedStatement.executeQuery();
             
@@ -79,6 +79,7 @@ public class QueryOrderAction extends LoadDatabaseAction implements Constant
                 row.add(resultSet.getString("order_Num"));
                 row.add(resultSet.getString("cus_Name"));
                 row.add(resultSet.getString("order_Date"));
+                row.add(resultSet.getString("status")); // 添加状态列
                 tableModel.addRow(row);
             }
             
@@ -93,7 +94,7 @@ public class QueryOrderAction extends LoadDatabaseAction implements Constant
         try {
             super.loadDatabaseAction();
             
-            String query = "SELECT o.order_Num, c.cus_Name, o.order_Date FROM CP_order o JOIN CP_customer c ON o.order_CustomerNum = c.cus_Num WHERE o.order_Num = ?";
+            String query = "SELECT o.order_Num, c.cus_Name, o.order_Date, o.status FROM CP_order o JOIN CP_customer c ON o.order_CustomerNum = c.cus_Num WHERE o.order_Num = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, orderNum);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -103,6 +104,7 @@ public class QueryOrderAction extends LoadDatabaseAction implements Constant
                 row.add(resultSet.getString("order_Num"));
                 row.add(resultSet.getString("cus_Name"));
                 row.add(resultSet.getString("order_Date"));
+                row.add(resultSet.getString("status")); // 添加状态列
                 tableModel.addRow(row);
             } else {
                 // 没有找到对应的订单

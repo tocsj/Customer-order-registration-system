@@ -35,7 +35,7 @@ public interface Constant
     String QUERY_INVOICE_NUM="select inv_Num from CP_invoice";
 
     String ADD_CUSTOMER="insert into CP_customer values(?,?,?,?) ";
-    String ADD_ORDER="insert into CP_order(order_CustomerNum,order_Date) values(?,?)";
+    String ADD_ORDER="insert into CP_order(order_CustomerNum,order_Date,status) values(?,?,?)";
     String ADD_GOODS_INFO_IN_ORDER="insert into CP_goodsInfoInOrder(order_Num,goods_Name,goods_Price,goods_ChooseNum) values(?,?,?,?)";
     String ADD_INVOICE="insert into CP_invoice values(?,?,?,?,?,?)";
 
@@ -96,6 +96,10 @@ public interface Constant
 
     //the ways of paying
     String [] PAY_WAYS={"支付宝","微信","银行卡","现金"};                   //支付方式
+    
+    //订单状态
+    String ORDER_STATUS_PENDING = "待支付";                              //订单待支付状态
+    String ORDER_STATUS_COMPLETED = "支付完成";                          //订单已完成状态
     
     //Additional SQL queries for goods management
     String QUERY_GOODS_NUM = "select goods_Num from CP_goods";

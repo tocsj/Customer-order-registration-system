@@ -67,7 +67,11 @@ public class CustomerManage_Frame extends JFrame implements Constant
         int customer_RowNum=CUSTOMER_INFO_NUM.size();
         Vector<String> vec_customerInfo=new Vector<>();
 
-        for(int i=0;i<customer_RowNum;++i)
+        // 修复索引越界问题：确保所有列表大小一致
+        int minSize = Math.min(Math.min(Math.min(CUSTOMER_INFO_NUM.size(), CUSTOMER_INFO_NAME.size()), 
+                                   CUSTOMER_INFO_TEL.size()), CUSTOMER_INFO_ADDRESS.size());
+    
+        for(int i=0;i<minSize;++i)
         {
             vec_customerInfo.add(CUSTOMER_INFO_NUM.get(i));
             vec_customerInfo.add(CUSTOMER_INFO_NAME.get(i));
@@ -78,6 +82,8 @@ public class CustomerManage_Frame extends JFrame implements Constant
             tableModel.addRow(objects);
             vec_customerInfo.clear();
         }
+    
+        // 清空列表防止重复添加
         CUSTOMER_INFO_NUM.clear();
         CUSTOMER_INFO_NAME.clear();
         CUSTOMER_INFO_TEL.clear();
@@ -258,12 +264,12 @@ public class CustomerManage_Frame extends JFrame implements Constant
             // 清空之前查询的结果
             DefaultTableModel tableModel = (DefaultTableModel) table_CustomerInfo.getModel();
             tableModel.setRowCount(0);
+            tableModel.setColumnCount(0); // 修复：确保每次都重新设置列数
             
             queryController=new QueryController();
             queryController.InitCustomerHeader();
             
             // 初始化表格头
-            tableModel.setColumnCount(0);
             for(String str:CUSTOMER_INFO_HEADER)
                 tableModel.addColumn(str);
             
@@ -479,7 +485,7 @@ public class CustomerManage_Frame extends JFrame implements Constant
 
                 //---- button_Modify ----
                 button_Modify.setText("\u4fee\u6539");
-                button_Modify.addActionListener(e -> button_Query_ActionPerformed(e));
+                button_Modify.addActionListener(e -> button_Modify_ActionPerformed(e));
                 panel_QueryCustomer.add(button_Modify);
                 button_Modify.setBounds(325, 85, 78, 30);
 
@@ -527,7 +533,7 @@ public class CustomerManage_Frame extends JFrame implements Constant
 
                 //---- button_Modify2 ----
                 button_Modify2.setText("Modify");
-                button_Modify2.addActionListener(e -> button_Add_ActionPerformed(e));
+                button_Modify2.addActionListener(e -> button_Modify2_ActionPerformed(e));
                 panel_UpdateCustomer.add(button_Modify2);
                 button_Modify2.setBounds(260, 50, 85, 35);
 
@@ -567,7 +573,7 @@ public class CustomerManage_Frame extends JFrame implements Constant
 
                 //---- button_DeleteByName ----
                 button_DeleteByName.setText("\u641c\u7d22\u5e76\u5220\u9664");
-                button_DeleteByName.addActionListener(e -> button_QueryByName_ActionPerformed(e));
+                button_DeleteByName.addActionListener(e -> button_DeleteByName_ActionPerformed(e));
                 panel_DeleteCustomer.add(button_DeleteByName);
                 button_DeleteByName.setBounds(175, 45, 105, 40);
 

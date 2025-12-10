@@ -22,6 +22,7 @@ public class AddOrderAction extends LoadDatabaseAction
 
             preparedStatement.setInt(1, cus_num);
             preparedStatement.setTimestamp(2, order_date);
+            preparedStatement.setString(3, "待支付"); // 默认订单状态为"待支付"
             preparedStatement.executeUpdate();
             
             // 获取生成的自增ID

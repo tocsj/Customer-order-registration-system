@@ -302,6 +302,7 @@ public class OrderManage_Frame extends JFrame implements Constant
         columnNames.add("订单号");
         columnNames.add("客户名");
         columnNames.add("开单日期");
+        columnNames.add("支付状态"); // 添加状态列标题
         tableModel.setColumnIdentifiers(columnNames);
         
         // 查询所有订单信息
@@ -335,6 +336,7 @@ public class OrderManage_Frame extends JFrame implements Constant
         columnNames.add("订单号");
         columnNames.add("客户名");
         columnNames.add("开单日期");
+        columnNames.add("支付状态"); // 添加状态列标题
         tableModel.setColumnIdentifiers(columnNames);
         
         // 查询指定订单信息

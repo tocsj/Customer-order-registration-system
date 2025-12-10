@@ -33,6 +33,14 @@ public class AddInvoiceAction extends LoadDatabaseAction
             preparedStatement.setTimestamp(5, date);         // inv_Date (使用Timestamp保持时分秒)
 
             preparedStatement.executeUpdate();
+            
+            // 更新订单状态为"支付完成"
+            PreparedStatement updateOrderStatus = connection.prepareStatement(
+                "UPDATE CP_order SET status = ? WHERE order_Num = ?");
+            updateOrderStatus.setString(1, "支付完成");
+            updateOrderStatus.setInt(2, order_id);
+            updateOrderStatus.executeUpdate();
+            updateOrderStatus.close();
 
             super.disConnectDatabase();
 

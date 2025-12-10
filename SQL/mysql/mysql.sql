@@ -31,6 +31,7 @@ create table if not exists cp_order
         primary key,
     order_CustomerNum int                                not null,
     order_Date        datetime default CURRENT_TIMESTAMP null,
+    status            varchar(12)                        not null comment '状态',
     constraint cp_order_ibfk_1
         foreign key (order_CustomerNum) references cp_customer (cus_Num)
 );
