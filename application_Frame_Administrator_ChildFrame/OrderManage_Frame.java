@@ -120,6 +120,9 @@ public class OrderManage_Frame extends JFrame implements Constant
 
     }
 
+    // 用于获取生成的订单ID
+    private int[] generatedOrderId = new int[1];
+
     //保存订单
     private void button_SaveOrder_ActionPerformed(ActionEvent e) 
     {
@@ -136,7 +139,6 @@ public class OrderManage_Frame extends JFrame implements Constant
         }
         
         // 用于获取生成的订单ID
-        int[] generatedOrderId = new int[1];
         int isAddOrder=addController.addOrder(cus_num, new java.sql.Timestamp(date.getTime()), generatedOrderId);
         switch (isAddOrder)
         {
@@ -207,7 +209,9 @@ public class OrderManage_Frame extends JFrame implements Constant
     private void button_CheckInvoice_ActionPerformed(ActionEvent e)
     {
         InvoiceManage_Frame invoiceManage_frame=new InvoiceManage_Frame();
-        invoiceManage_frame.setOrderInfo(CurrentCustomer_Name, order_num, total_Price);
+        // 使用保存订单时生成的订单ID
+        int actual_order_num = generatedOrderId[0];
+        invoiceManage_frame.setOrderInfo(CurrentCustomer_Name, String.valueOf(actual_order_num), total_Price);
         this.setVisible(false);
     }
     

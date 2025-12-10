@@ -13,7 +13,7 @@ public class AddInvoiceAction extends LoadDatabaseAction
     }
 
     //添加发票记录
-    public int addInvoice(int order_id, int cus_num, float total_price, String pay_way, Date date )
+    public int addInvoice(int order_id, int cus_num, float total_price, String pay_way, java.sql.Timestamp date )
     {
         try
         {
@@ -30,7 +30,7 @@ public class AddInvoiceAction extends LoadDatabaseAction
             preparedStatement.setInt(2, cus_num);            // inv_CustomerNum
             preparedStatement.setFloat(3, total_price);      // inv_TotalMoney
             preparedStatement.setString(4, pay_way);         // inv_PayType
-            preparedStatement.setDate(5, date);              // inv_Date
+            preparedStatement.setTimestamp(5, date);         // inv_Date (使用Timestamp保持时分秒)
 
             preparedStatement.executeUpdate();
 

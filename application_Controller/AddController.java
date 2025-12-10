@@ -120,7 +120,7 @@ public class AddController implements Constant
 
     // 添加发票记录
     // 修改方法签名，第一个参数改为int类型的订单ID
-    public int addInvoice(int order_id, int cus_num, float total_price, String pay_way, Date date )
+    public int addInvoice(int order_id, int cus_num, float total_price, String pay_way, java.sql.Timestamp date )
     {
         addInvoiceAction = new AddInvoiceAction();
         // 调用修改后的addInvoice方法，传入整数类型的订单ID

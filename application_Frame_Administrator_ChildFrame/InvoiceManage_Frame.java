@@ -111,7 +111,7 @@ public class InvoiceManage_Frame extends JFrame implements Constant
         }
 
         //获取开发票时间
-        date = new Date(System.currentTimeMillis());
+        date = new java.sql.Timestamp(System.currentTimeMillis());
         textField_Date.setText(date.toString());
 
         //填充其他信息
@@ -298,7 +298,7 @@ public class InvoiceManage_Frame extends JFrame implements Constant
     private float Total_Money=0;
     private String Invoice_Num=null;
     private String pay_way=null;
-    private Date date;
+    private java.sql.Timestamp date;
     private QueryController queryController;
     private AddController addController;
     private UpdateController updateController;
