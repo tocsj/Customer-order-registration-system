@@ -153,30 +153,204 @@ new FormModel {
 					add( new FormComponent( "javax.swing.JButton" ) {
 						name: "good_add"
 						"text": "ADD"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "good_addActionPerformed", true ) )
 					}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 						"x": 305
 						"y": 60
-						"width": 105
 					} )
 					add( new FormComponent( "javax.swing.JButton" ) {
 						name: "button2"
 						"text": "ESC"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "button2ActionPerformed", true ) )
 					}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 						"x": 305
 						"y": 165
-						"width": 105
 					} )
 				}, new FormLayoutConstraints( null ) {
 					"title": "新增商品"
 				} )
-				add( new FormContainer( "javax.swing.JTabbedPane", new FormLayoutManager( class javax.swing.JTabbedPane ) ) {
-					name: "tabbedPane1"
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+					name: "panel_DeleteGoods"
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "label_DeleteGoodsName"
+						"text": "商品名称"
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+						"x": 30
+						"y": 65
+					} )
+					add( new FormComponent( "javax.swing.JTextField" ) {
+						name: "textField_DeleteGoodsName"
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+						"x": 115
+						"y": 60
+						"width": 130
+					} )
+					add( new FormComponent( "javax.swing.JButton" ) {
+						name: "button_DeleteGoods"
+						"text": "删除"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "button_DeleteGoodsActionPerformed", true ) )
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+						"x": 305
+						"y": 55
+					} )
+					add( new FormComponent( "javax.swing.JButton" ) {
+						name: "button_DeleteCancel"
+						"text": "取消"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "button_DeleteCancelActionPerformed", true ) )
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+						"x": 305
+						"y": 130
+					} )
 				}, new FormLayoutConstraints( null ) {
-					"title": "text"
+					"title": "删除商品"
+				} )
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+					name: "panel_QueryGoods"
+					add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+						name: "scrollPane_QueryGoods"
+						add( new FormComponent( "javax.swing.JTable" ) {
+							name: "table_QueryGoods"
+						} )
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+						"x": 10
+						"y": 5
+						"width": 480
+						"height": 265
+					} )
+					add( new FormComponent( "javax.swing.JButton" ) {
+						name: "button_QueryAllGoods"
+						"text": "查询全部"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "button_QueryAllGoodsActionPerformed", true ) )
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+						"x": 395
+						"y": 295
+					} )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "label_QueryGoodsName"
+						"text": "商品名称"
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+						"x": 15
+						"y": 280
+					} )
+					add( new FormComponent( "javax.swing.JTextField" ) {
+						name: "textField_QueryGoodsName"
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+						"x": 75
+						"y": 275
+						"width": 130
+					} )
+					add( new FormComponent( "javax.swing.JButton" ) {
+						name: "button_QueryGoodsByName"
+						"text": "查询"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "button_QueryGoodsByNameActionPerformed", true ) )
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+						"x": 220
+						"y": 275
+					} )
+				}, new FormLayoutConstraints( null ) {
+					"title": "查询商品"
+				} )
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+					name: "panel_UpdateGoods"
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "label_UpdateGoodsCurrentName"
+						"text": "当前商品名称"
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+						"x": 15
+						"y": 35
+					} )
+					add( new FormComponent( "javax.swing.JTextField" ) {
+						name: "textField_UpdateGoodsCurrentName"
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+						"x": 120
+						"y": 30
+						"width": 125
+					} )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "label_UpdateGoodsNewName"
+						"text": "新商品名称"
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+						"x": 15
+						"y": 90
+					} )
+					add( new FormComponent( "javax.swing.JTextField" ) {
+						name: "textField_UpdateGoodsNewName"
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+						"x": 120
+						"y": 85
+						"width": 125
+					} )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "label_UpdateGoodsNewPrice"
+						"text": "新商品价格"
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+						"x": 15
+						"y": 140
+					} )
+					add( new FormComponent( "javax.swing.JTextField" ) {
+						name: "textField_UpdateGoodsNewPrice"
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+						"x": 120
+						"y": 135
+						"width": 125
+					} )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "label_UpdateGoodsNewStoreNum"
+						"text": "新商品库存"
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+						"x": 15
+						"y": 195
+					} )
+					add( new FormComponent( "javax.swing.JTextField" ) {
+						name: "textField_UpdateGoodsNewStoreNum"
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+						"x": 120
+						"y": 190
+						"width": 125
+					} )
+					add( new FormComponent( "javax.swing.JButton" ) {
+						name: "button_UpdateGoods"
+						"text": "修改"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "button_UpdateGoodsActionPerformed", true ) )
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+						"x": 315
+						"y": 70
+					} )
+					add( new FormComponent( "javax.swing.JButton" ) {
+						name: "button_UpdateCancel"
+						"text": "取消"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "button_UpdateCancelActionPerformed", true ) )
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+						"x": 315
+						"y": 145
+					} )
+				}, new FormLayoutConstraints( null ) {
+					"title": "修改商品"
+				} )
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+					name: "panel_OrderManage"
+					add( new FormComponent( "javax.swing.JButton" ) {
+						name: "button_QueryOrder"
+						"text": "查询订单"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "button_QueryOrderActionPerformed", true ) )
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+						"x": 135
+						"y": 110
+					} )
+					add( new FormComponent( "javax.swing.JButton" ) {
+						name: "button_AddOrder"
+						"text": "新增订单"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "button_AddOrderActionPerformed", true ) )
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+						"x": 290
+						"y": 110
+					} )
+				}, new FormLayoutConstraints( null ) {
+					"title": "订单管理"
 				} )
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 				"x": -5
-				"y": 5
+				"y": 10
 				"width": 520
 				"height": 380
 			} )

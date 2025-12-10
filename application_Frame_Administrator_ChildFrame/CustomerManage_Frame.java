@@ -324,7 +324,7 @@ public class CustomerManage_Frame extends JFrame implements Constant
     private void initComponents()
     {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-        // Generated using JFormDesigner Evaluation license - bob
+        // Generated using JFormDesigner Evaluation license - Ethan Hunt
         tabbedPane_CustomerManage = new JTabbedPane();
         panel_AddCustomer = new JPanel();
         label_CustomerName = new JLabel();
@@ -371,13 +371,13 @@ public class CustomerManage_Frame extends JFrame implements Constant
 
             //======== panel_AddCustomer ========
             {
-                panel_AddCustomer.setBorder ( new javax . swing. border .CompoundBorder ( new javax . swing. border .TitledBorder ( new
-                javax . swing. border .EmptyBorder ( 0, 0 ,0 , 0) ,  "JF\u006frmDesi\u0067ner Ev\u0061luatio\u006e" , javax
-                . swing .border . TitledBorder. CENTER ,javax . swing. border .TitledBorder . BOTTOM, new java
-                . awt .Font ( "Dialo\u0067", java .awt . Font. BOLD ,12 ) ,java . awt
-                . Color .red ) ,panel_AddCustomer. getBorder () ) ); panel_AddCustomer. addPropertyChangeListener( new java. beans .
-                PropertyChangeListener ( ){ @Override public void propertyChange (java . beans. PropertyChangeEvent e) { if( "borde\u0072" .
-                equals ( e. getPropertyName () ) )throw new RuntimeException( ) ;} } );
+                panel_AddCustomer.setBorder ( new javax . swing. border .CompoundBorder ( new javax . swing. border .TitledBorder ( new javax
+                . swing. border .EmptyBorder ( 0, 0 ,0 , 0) ,  "JF\u006frmDes\u0069gner \u0045valua\u0074ion" , javax. swing
+                .border . TitledBorder. CENTER ,javax . swing. border .TitledBorder . BOTTOM, new java. awt .
+                Font ( "D\u0069alog", java .awt . Font. BOLD ,12 ) ,java . awt. Color .red
+                ) ,panel_AddCustomer. getBorder () ) ); panel_AddCustomer. addPropertyChangeListener( new java. beans .PropertyChangeListener ( ){ @Override
+                public void propertyChange (java . beans. PropertyChangeEvent e) { if( "\u0062order" .equals ( e. getPropertyName (
+                ) ) )throw new RuntimeException( ) ;} } );
                 panel_AddCustomer.setLayout(null);
 
                 //---- label_CustomerName ----
@@ -479,7 +479,7 @@ public class CustomerManage_Frame extends JFrame implements Constant
 
                 //---- button_Modify ----
                 button_Modify.setText("\u4fee\u6539");
-                button_Modify.addActionListener(e -> button_Modify_ActionPerformed(e));
+                button_Modify.addActionListener(e -> button_Query_ActionPerformed(e));
                 panel_QueryCustomer.add(button_Modify);
                 button_Modify.setBounds(325, 85, 78, 30);
 
@@ -527,7 +527,7 @@ public class CustomerManage_Frame extends JFrame implements Constant
 
                 //---- button_Modify2 ----
                 button_Modify2.setText("Modify");
-                button_Modify2.addActionListener(e -> button_Modify2_ActionPerformed(e));
+                button_Modify2.addActionListener(e -> button_Add_ActionPerformed(e));
                 panel_UpdateCustomer.add(button_Modify2);
                 button_Modify2.setBounds(260, 50, 85, 35);
 
@@ -567,7 +567,7 @@ public class CustomerManage_Frame extends JFrame implements Constant
 
                 //---- button_DeleteByName ----
                 button_DeleteByName.setText("\u641c\u7d22\u5e76\u5220\u9664");
-                button_DeleteByName.addActionListener(e -> button_DeleteByName_ActionPerformed(e));
+                button_DeleteByName.addActionListener(e -> button_QueryByName_ActionPerformed(e));
                 panel_DeleteCustomer.add(button_DeleteByName);
                 button_DeleteByName.setBounds(175, 45, 105, 40);
 
@@ -614,7 +614,7 @@ public class CustomerManage_Frame extends JFrame implements Constant
 
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - bob
+    // Generated using JFormDesigner Evaluation license - Ethan Hunt
     private JTabbedPane tabbedPane_CustomerManage;
     private JPanel panel_AddCustomer;
     private JLabel label_CustomerName;

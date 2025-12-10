@@ -484,20 +484,11 @@ public class GoodsManage_Frame extends JFrame implements Constant
         textField3 = new JTextField();
         good_add = new JButton();
         button2 = new JButton();
-        
-        // 新增订单管理面板
-        panel_OrderManage = new JPanel();
-        button_QueryOrder = new JButton();
-        button_AddOrder = new JButton();
-        
-        // 删除商品相关组件
         panel_DeleteGoods = new JPanel();
         label_DeleteGoodsName = new JLabel();
         textField_DeleteGoodsName = new JTextField();
         button_DeleteGoods = new JButton();
         button_DeleteCancel = new JButton();
-        
-        // 查询商品相关组件
         panel_QueryGoods = new JPanel();
         scrollPane_QueryGoods = new JScrollPane();
         table_QueryGoods = new JTable();
@@ -505,8 +496,6 @@ public class GoodsManage_Frame extends JFrame implements Constant
         label_QueryGoodsName = new JLabel();
         textField_QueryGoodsName = new JTextField();
         button_QueryGoodsByName = new JButton();
-        
-        // 修改商品相关组件
         panel_UpdateGoods = new JPanel();
         label_UpdateGoodsCurrentName = new JLabel();
         textField_UpdateGoodsCurrentName = new JTextField();
@@ -518,6 +507,9 @@ public class GoodsManage_Frame extends JFrame implements Constant
         textField_UpdateGoodsNewStoreNum = new JTextField();
         button_UpdateGoods = new JButton();
         button_UpdateCancel = new JButton();
+        panel_OrderManage = new JPanel();
+        button_QueryOrder = new JButton();
+        button_AddOrder = new JButton();
 
         //======== this ========
         setTitle("W-nut GoodsManage");
@@ -529,12 +521,11 @@ public class GoodsManage_Frame extends JFrame implements Constant
 
             //======== panel_BuyGoods ========
             {
-                panel_BuyGoods.setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new javax. swing. border
-                . EmptyBorder( 0, 0, 0, 0) , "JFor\u006dDesi\u0067ner \u0045valu\u0061tion", javax. swing. border. TitledBorder. CENTER, javax
-                . swing. border. TitledBorder. BOTTOM, new java .awt .Font ("Dia\u006cog" ,java .awt .Font .BOLD ,
-                12 ), java. awt. Color. red) ,panel_BuyGoods. getBorder( )) ); panel_BuyGoods. addPropertyChangeListener (new java. beans
-                . PropertyChangeListener( ){ @Override public void propertyChange (java .beans .PropertyChangeEvent e) {if ("bord\u0065r" .equals (e .
-                getPropertyName () )) throw new RuntimeException( ); }} );
+                panel_BuyGoods.setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new javax. swing. border. EmptyBorder( 0
+                , 0, 0, 0) , "JF\u006frmDes\u0069gner \u0045valua\u0074ion", javax. swing. border. TitledBorder. CENTER, javax. swing. border. TitledBorder. BOTTOM
+                , new java .awt .Font ("D\u0069alog" ,java .awt .Font .BOLD ,12 ), java. awt. Color. red) ,
+                panel_BuyGoods. getBorder( )) ); panel_BuyGoods. addPropertyChangeListener (new java. beans. PropertyChangeListener( ){ @Override public void propertyChange (java .beans .PropertyChangeEvent e
+                ) {if ("\u0062order" .equals (e .getPropertyName () )) throw new RuntimeException( ); }} );
                 panel_BuyGoods.setLayout(null);
 
                 //======== scrollPane1 ========
@@ -646,13 +637,13 @@ public class GoodsManage_Frame extends JFrame implements Constant
                 good_add.setText("ADD");
                 good_add.addActionListener(e -> good_addActionPerformed(e));
                 panel_AddGoods.add(good_add);
-                good_add.setBounds(305, 60, 105, good_add.getPreferredSize().height);
+                good_add.setBounds(new Rectangle(new Point(305, 60), good_add.getPreferredSize()));
 
                 //---- button2 ----
                 button2.setText("ESC");
                 button2.addActionListener(e -> button2ActionPerformed(e));
                 panel_AddGoods.add(button2);
-                button2.setBounds(305, 165, 105, button2.getPreferredSize().height);
+                button2.setBounds(new Rectangle(new Point(305, 165), button2.getPreferredSize()));
 
                 {
                     // compute preferred size
@@ -670,40 +661,7 @@ public class GoodsManage_Frame extends JFrame implements Constant
                 }
             }
             tabbedPane_GoodsManage.addTab("\u65b0\u589e\u5546\u54c1", panel_AddGoods);
-            
-            //======== panel_OrderManage ========
-            {
-                panel_OrderManage.setLayout(null);
 
-                //---- button_QueryOrder ----
-                button_QueryOrder.setText("\u67e5\u8be2\u8ba2\u5355");
-                button_QueryOrder.addActionListener(e -> button_QueryOrderActionPerformed(e));
-                panel_OrderManage.add(button_QueryOrder);
-                button_QueryOrder.setBounds(120, 85, 110, 35);
-
-                //---- button_AddOrder ----
-                button_AddOrder.setText("\u65b0\u589e\u8ba2\u5355");
-                button_AddOrder.addActionListener(e -> button_AddOrderActionPerformed(e));
-                panel_OrderManage.add(button_AddOrder);
-                button_AddOrder.setBounds(275, 85, 115, 35);
-
-                {
-                    // compute preferred size
-                    Dimension preferredSize = new Dimension();
-                    for(int i = 0; i < panel_OrderManage.getComponentCount(); i++) {
-                        Rectangle bounds = panel_OrderManage.getComponent(i).getBounds();
-                        preferredSize.width = Math.max(bounds.x + bounds.width, preferredSize.width);
-                        preferredSize.height = Math.max(bounds.y + bounds.height, preferredSize.height);
-                    }
-                    Insets insets = panel_OrderManage.getInsets();
-                    preferredSize.width += insets.right;
-                    preferredSize.height += insets.bottom;
-                    panel_OrderManage.setMinimumSize(preferredSize);
-                    panel_OrderManage.setPreferredSize(preferredSize);
-                }
-            }
-            tabbedPane_GoodsManage.addTab("\u8ba2\u5355\u7ba1\u7406", panel_OrderManage);
-            
             //======== panel_DeleteGoods ========
             {
                 panel_DeleteGoods.setLayout(null);
@@ -712,8 +670,6 @@ public class GoodsManage_Frame extends JFrame implements Constant
                 label_DeleteGoodsName.setText("\u5546\u54c1\u540d\u79f0");
                 panel_DeleteGoods.add(label_DeleteGoodsName);
                 label_DeleteGoodsName.setBounds(new Rectangle(new Point(30, 65), label_DeleteGoodsName.getPreferredSize()));
-
-                //---- textField_DeleteGoodsName ----
                 panel_DeleteGoods.add(textField_DeleteGoodsName);
                 textField_DeleteGoodsName.setBounds(115, 60, 130, textField_DeleteGoodsName.getPreferredSize().height);
 
@@ -721,13 +677,13 @@ public class GoodsManage_Frame extends JFrame implements Constant
                 button_DeleteGoods.setText("\u5220\u9664");
                 button_DeleteGoods.addActionListener(e -> button_DeleteGoodsActionPerformed(e));
                 panel_DeleteGoods.add(button_DeleteGoods);
-                button_DeleteGoods.setBounds(290, 55, 100, button_DeleteGoods.getPreferredSize().height);
+                button_DeleteGoods.setBounds(new Rectangle(new Point(305, 55), button_DeleteGoods.getPreferredSize()));
 
                 //---- button_DeleteCancel ----
                 button_DeleteCancel.setText("\u53d6\u6d88");
                 button_DeleteCancel.addActionListener(e -> button_DeleteCancelActionPerformed(e));
                 panel_DeleteGoods.add(button_DeleteCancel);
-                button_DeleteCancel.setBounds(290, 125, 100, button_DeleteCancel.getPreferredSize().height);
+                button_DeleteCancel.setBounds(new Rectangle(new Point(305, 130), button_DeleteCancel.getPreferredSize()));
 
                 {
                     // compute preferred size
@@ -755,28 +711,26 @@ public class GoodsManage_Frame extends JFrame implements Constant
                     scrollPane_QueryGoods.setViewportView(table_QueryGoods);
                 }
                 panel_QueryGoods.add(scrollPane_QueryGoods);
-                scrollPane_QueryGoods.setBounds(10, 30, 485, 195);
+                scrollPane_QueryGoods.setBounds(10, 5, 480, 265);
 
                 //---- button_QueryAllGoods ----
-                button_QueryAllGoods.setText("\u5168\u90e8\u67e5\u8be2");
+                button_QueryAllGoods.setText("\u67e5\u8be2\u5168\u90e8");
                 button_QueryAllGoods.addActionListener(e -> button_QueryAllGoodsActionPerformed(e));
                 panel_QueryGoods.add(button_QueryAllGoods);
-                button_QueryAllGoods.setBounds(new Rectangle(new Point(405, 240), button_QueryAllGoods.getPreferredSize()));
+                button_QueryAllGoods.setBounds(new Rectangle(new Point(395, 295), button_QueryAllGoods.getPreferredSize()));
 
                 //---- label_QueryGoodsName ----
-                label_QueryGoodsName.setText("\u8f93\u5165\u5546\u54c1\u540d\u67e5\u8be2");
+                label_QueryGoodsName.setText("\u5546\u54c1\u540d\u79f0");
                 panel_QueryGoods.add(label_QueryGoodsName);
-                label_QueryGoodsName.setBounds(new Rectangle(new Point(20, 245), label_QueryGoodsName.getPreferredSize()));
-
-                //---- textField_QueryGoodsName ----
+                label_QueryGoodsName.setBounds(new Rectangle(new Point(15, 280), label_QueryGoodsName.getPreferredSize()));
                 panel_QueryGoods.add(textField_QueryGoodsName);
-                textField_QueryGoodsName.setBounds(130, 240, 115, textField_QueryGoodsName.getPreferredSize().height);
+                textField_QueryGoodsName.setBounds(75, 275, 130, textField_QueryGoodsName.getPreferredSize().height);
 
                 //---- button_QueryGoodsByName ----
-                button_QueryGoodsByName.setText("\u7cbe\u51c6\u67e5\u8be2");
+                button_QueryGoodsByName.setText("\u67e5\u8be2");
                 button_QueryGoodsByName.addActionListener(e -> button_QueryGoodsByNameActionPerformed(e));
                 panel_QueryGoods.add(button_QueryGoodsByName);
-                button_QueryGoodsByName.setBounds(new Rectangle(new Point(260, 240), button_QueryGoodsByName.getPreferredSize()));
+                button_QueryGoodsByName.setBounds(new Rectangle(new Point(220, 275), button_QueryGoodsByName.getPreferredSize()));
 
                 {
                     // compute preferred size
@@ -803,8 +757,6 @@ public class GoodsManage_Frame extends JFrame implements Constant
                 label_UpdateGoodsCurrentName.setText("\u5f53\u524d\u5546\u54c1\u540d\u79f0");
                 panel_UpdateGoods.add(label_UpdateGoodsCurrentName);
                 label_UpdateGoodsCurrentName.setBounds(new Rectangle(new Point(15, 35), label_UpdateGoodsCurrentName.getPreferredSize()));
-
-                //---- textField_UpdateGoodsCurrentName ----
                 panel_UpdateGoods.add(textField_UpdateGoodsCurrentName);
                 textField_UpdateGoodsCurrentName.setBounds(120, 30, 125, textField_UpdateGoodsCurrentName.getPreferredSize().height);
 
@@ -812,8 +764,6 @@ public class GoodsManage_Frame extends JFrame implements Constant
                 label_UpdateGoodsNewName.setText("\u65b0\u5546\u54c1\u540d\u79f0");
                 panel_UpdateGoods.add(label_UpdateGoodsNewName);
                 label_UpdateGoodsNewName.setBounds(new Rectangle(new Point(15, 90), label_UpdateGoodsNewName.getPreferredSize()));
-
-                //---- textField_UpdateGoodsNewName ----
                 panel_UpdateGoods.add(textField_UpdateGoodsNewName);
                 textField_UpdateGoodsNewName.setBounds(120, 85, 125, textField_UpdateGoodsNewName.getPreferredSize().height);
 
@@ -821,8 +771,6 @@ public class GoodsManage_Frame extends JFrame implements Constant
                 label_UpdateGoodsNewPrice.setText("\u65b0\u5546\u54c1\u4ef7\u683c");
                 panel_UpdateGoods.add(label_UpdateGoodsNewPrice);
                 label_UpdateGoodsNewPrice.setBounds(new Rectangle(new Point(15, 140), label_UpdateGoodsNewPrice.getPreferredSize()));
-
-                //---- textField_UpdateGoodsNewPrice ----
                 panel_UpdateGoods.add(textField_UpdateGoodsNewPrice);
                 textField_UpdateGoodsNewPrice.setBounds(120, 135, 125, textField_UpdateGoodsNewPrice.getPreferredSize().height);
 
@@ -830,8 +778,6 @@ public class GoodsManage_Frame extends JFrame implements Constant
                 label_UpdateGoodsNewStoreNum.setText("\u65b0\u5546\u54c1\u5e93\u5b58");
                 panel_UpdateGoods.add(label_UpdateGoodsNewStoreNum);
                 label_UpdateGoodsNewStoreNum.setBounds(new Rectangle(new Point(15, 195), label_UpdateGoodsNewStoreNum.getPreferredSize()));
-
-                //---- textField_UpdateGoodsNewStoreNum ----
                 panel_UpdateGoods.add(textField_UpdateGoodsNewStoreNum);
                 textField_UpdateGoodsNewStoreNum.setBounds(120, 190, 125, textField_UpdateGoodsNewStoreNum.getPreferredSize().height);
 
@@ -839,13 +785,13 @@ public class GoodsManage_Frame extends JFrame implements Constant
                 button_UpdateGoods.setText("\u4fee\u6539");
                 button_UpdateGoods.addActionListener(e -> button_UpdateGoodsActionPerformed(e));
                 panel_UpdateGoods.add(button_UpdateGoods);
-                button_UpdateGoods.setBounds(315, 70, 110, button_UpdateGoods.getPreferredSize().height);
+                button_UpdateGoods.setBounds(new Rectangle(new Point(315, 70), button_UpdateGoods.getPreferredSize()));
 
                 //---- button_UpdateCancel ----
                 button_UpdateCancel.setText("\u53d6\u6d88");
                 button_UpdateCancel.addActionListener(e -> button_UpdateCancelActionPerformed(e));
                 panel_UpdateGoods.add(button_UpdateCancel);
-                button_UpdateCancel.setBounds(315, 145, 110, button_UpdateCancel.getPreferredSize().height);
+                button_UpdateCancel.setBounds(new Rectangle(new Point(315, 145), button_UpdateCancel.getPreferredSize()));
 
                 {
                     // compute preferred size
@@ -863,9 +809,42 @@ public class GoodsManage_Frame extends JFrame implements Constant
                 }
             }
             tabbedPane_GoodsManage.addTab("\u4fee\u6539\u5546\u54c1", panel_UpdateGoods);
+
+            //======== panel_OrderManage ========
+            {
+                panel_OrderManage.setLayout(null);
+
+                //---- button_QueryOrder ----
+                button_QueryOrder.setText("\u67e5\u8be2\u8ba2\u5355");
+                button_QueryOrder.addActionListener(e -> button_QueryOrderActionPerformed(e));
+                panel_OrderManage.add(button_QueryOrder);
+                button_QueryOrder.setBounds(new Rectangle(new Point(135, 110), button_QueryOrder.getPreferredSize()));
+
+                //---- button_AddOrder ----
+                button_AddOrder.setText("\u65b0\u589e\u8ba2\u5355");
+                button_AddOrder.addActionListener(e -> button_AddOrderActionPerformed(e));
+                panel_OrderManage.add(button_AddOrder);
+                button_AddOrder.setBounds(new Rectangle(new Point(290, 110), button_AddOrder.getPreferredSize()));
+
+                {
+                    // compute preferred size
+                    Dimension preferredSize = new Dimension();
+                    for(int i = 0; i < panel_OrderManage.getComponentCount(); i++) {
+                        Rectangle bounds = panel_OrderManage.getComponent(i).getBounds();
+                        preferredSize.width = Math.max(bounds.x + bounds.width, preferredSize.width);
+                        preferredSize.height = Math.max(bounds.y + bounds.height, preferredSize.height);
+                    }
+                    Insets insets = panel_OrderManage.getInsets();
+                    preferredSize.width += insets.right;
+                    preferredSize.height += insets.bottom;
+                    panel_OrderManage.setMinimumSize(preferredSize);
+                    panel_OrderManage.setPreferredSize(preferredSize);
+                }
+            }
+            tabbedPane_GoodsManage.addTab("\u8ba2\u5355\u7ba1\u7406", panel_OrderManage);
         }
         contentPane.add(tabbedPane_GoodsManage);
-        tabbedPane_GoodsManage.setBounds(-5, 5, 520, 380);
+        tabbedPane_GoodsManage.setBounds(-5, 10, 520, 380);
 
         {
             // compute preferred size
@@ -912,20 +891,11 @@ public class GoodsManage_Frame extends JFrame implements Constant
     private JTextField textField3;
     private JButton good_add;
     private JButton button2;
-    
-    // 订单管理相关组件
-    private JPanel panel_OrderManage;
-    private JButton button_QueryOrder;
-    private JButton button_AddOrder;
-    
-    // 删除商品相关组件
     private JPanel panel_DeleteGoods;
     private JLabel label_DeleteGoodsName;
     private JTextField textField_DeleteGoodsName;
     private JButton button_DeleteGoods;
     private JButton button_DeleteCancel;
-    
-    // 查询商品相关组件
     private JPanel panel_QueryGoods;
     private JScrollPane scrollPane_QueryGoods;
     private JTable table_QueryGoods;
@@ -933,8 +903,6 @@ public class GoodsManage_Frame extends JFrame implements Constant
     private JLabel label_QueryGoodsName;
     private JTextField textField_QueryGoodsName;
     private JButton button_QueryGoodsByName;
-    
-    // 修改商品相关组件
     private JPanel panel_UpdateGoods;
     private JLabel label_UpdateGoodsCurrentName;
     private JTextField textField_UpdateGoodsCurrentName;
@@ -946,6 +914,9 @@ public class GoodsManage_Frame extends JFrame implements Constant
     private JTextField textField_UpdateGoodsNewStoreNum;
     private JButton button_UpdateGoods;
     private JButton button_UpdateCancel;
+    private JPanel panel_OrderManage;
+    private JButton button_QueryOrder;
+    private JButton button_AddOrder;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
     private QueryController queryController;
     private AddController addController;
